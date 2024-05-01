@@ -1,0 +1,25 @@
+api_version: v1alpha
+kind: TaskAgent
+name: "SurfPizza"
+description: "A GUI surfer that uses dots for grounding"
+cmd: "poetry run python -m surfpizza.server"
+image: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:latest"
+versions:
+  latest: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:latest"
+runtimes:
+  - type: "agent"
+    preference:
+      - "docker"
+      - "kube"
+llm_providers:
+  preference:
+    - "gpt-4-turbo"
+    - "anthropic/claude-3-opus-20240229"
+public: True
+icon: https://storage.googleapis.com/guisurfer-assets/SurfPizza.webp
+resource_requests:
+  cpu: "1"
+  memory: "2Gi"
+resource_limits:
+  cpu: "2"
+  memory: "4Gi"
