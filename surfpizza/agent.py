@@ -45,7 +45,7 @@ class SurfPizza(TaskAgent):
 
         Args:
             task (Task): Task to solve.
-            device (Desktop): Device to perform the task on.
+            device (Device): Device to perform the task on.
             max_steps (int, optional): Max steps to try and solve. Defaults to 30.
 
         Returns:
@@ -59,7 +59,6 @@ class SurfPizza(TaskAgent):
         console.print("creating threads...")
         task.ensure_thread("debug")
         task.post_message("assistant", f"I'll post debug messages here", thread="debug")
-        console.print("created thread 'debug'")
 
         # Check that the device we received is one we support
         if not isinstance(device, Desktop):

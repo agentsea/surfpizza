@@ -2356,13 +2356,13 @@ adal = ["adal (>=1.0.2)"]
 
 [[package]]
 name = "litellm"
-version = "1.35.33"
+version = "1.35.34"
 description = "Library to easily interface with LLM API providers"
 optional = false
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 files = [
-    {file = "litellm-1.35.33-py3-none-any.whl", hash = "sha256:7dbbc282ea797febb4ace58bdd1fc42d0f20ea21a2ba576ebc2d933b337d8683"},
-    {file = "litellm-1.35.33.tar.gz", hash = "sha256:0082f6a44ff7ce9d2c1bc5182292c3f58f69c8be99fccb824e750c009f78d112"},
+    {file = "litellm-1.35.34-py3-none-any.whl", hash = "sha256:832849e6e9cb706fe8163b7362fedf35f2b46bd6409e5b3678fd645d1cb0436e"},
+    {file = "litellm-1.35.34.tar.gz", hash = "sha256:57194748f51ec55bf38b4260a374dbfcf832b8347c8f16ca75da5b852c089318"},
 ]
 
 [package.dependencies]
@@ -4068,13 +4068,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.101"
+version = "0.1.103"
 description = "A toolkit to build GUI surfing AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.101-py3-none-any.whl", hash = "sha256:1489837041229ac47e95177da6aea32166ee8ea7efc0ca7e55e7c3c2e2a3a639"},
-    {file = "surfkit-0.1.101.tar.gz", hash = "sha256:e4ed2debff086ff6d54ce32c2cdce83ea3d49872ebd547273cf7fa0aa55f14d4"},
+    {file = "surfkit-0.1.103-py3-none-any.whl", hash = "sha256:080d6f43b2fcfc411bdef792d44c6ef6124e69ba118beea84984ced91f1e934f"},
+    {file = "surfkit-0.1.103.tar.gz", hash = "sha256:d5b2b20d5fbd03f3dee7ecdb967dd63de6fac7da85b0455bf169009bb7a14f14"},
 ]
 
 [package.dependencies]
@@ -5016,4 +5016,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3fc1bc1d3aee8f760449c9b5c02825a16e45101576fdc35e8e454ab535ea207a"
+content-hash = "b397750405e2ff8b9f5123a4c7bacf0683e8dc288d459026f63145ec9ff113cb"

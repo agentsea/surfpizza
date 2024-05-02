@@ -164,4 +164,4 @@ def get_remote_task(id: str, owner_id: str, server: str) -> Task:
 
 if __name__ == "__main__":
     port = os.getenv("SURF_PORT", "9090")
-    uvicorn.run(app, host="0.0.0.0", port=int(port), reload=True)
+    uvicorn.run("surfpizza.server:app", host="0.0.0.0", port=int(port), reload=True)
