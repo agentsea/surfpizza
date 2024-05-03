@@ -5,7 +5,8 @@ import logging
 from taskara import Task, V1Task, V1Tasks
 from surfkit.hub import Hub
 from surfkit.models import V1SolveTask
-from fastapi import FastAPI, BackgroundTasks
+from surfkit.env import HUB_SERVER_ENV, HUB_API_KEY_ENV
+from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from tenacity import retry, stop_after_attempt, wait_fixed
@@ -14,6 +15,7 @@ import uvicorn
 from .agent import Agent, router
 
 logger: Final = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
 @asynccontextmanager
@@ -46,7 +48,10 @@ async def health():
 
 @app.post("/v1/tasks")
 async def solve_task(background_tasks: BackgroundTasks, task_model: V1SolveTask):
-    print(f"solving task: {task_model.model_dump()}")
+    logger.info(f"solving task: {task_model.model_dump()}")
+    print("\n\n\nsolving task: ", task_model.model_dump())
+    for key, value in os.environ.items():
+        print(f"{key}: {value}")
     try:
         # TODO: we need to find a way to do this earlier but get status back
         router.check_model()
@@ -54,34 +59,35 @@ async def solve_task(background_tasks: BackgroundTasks, task_model: V1SolveTask)
         logger.error(
             f"Cannot connect to LLM providers: {e} -- did you provide a valid key?"
         )
-        return {
-            "status": "failed",
-            "message": f"failed to conect to LLM providers: {e} -- did you provide a valid key?",
-        }
+        raise HTTPException(
+            status_code=500,
+            detail=f"failed to conect to LLM providers: {e} -- did you provide a valid key?",
+        )
 
     background_tasks.add_task(_solve_task, task_model)
     logger.info("created background task...")
+    print("\n\n\ncreated background task...")
 
 
 def _solve_task(task_model: V1SolveTask):
     task = Task.from_v1(task_model.task, owner_id="local")
     if task.remote:
         logger.info("connecting to remote task...")
-        HUB_SERVER = os.environ.get("SURF_HUB_SERVER", "https://surf.agentlabs.xyz")
-        HUB_API_KEY = os.environ.get("HUB_API_KEY")
+        HUB_SERVER = os.environ.get(HUB_SERVER_ENV, "https://surf.agentlabs.xyz")
+        HUB_API_KEY = os.environ.get(HUB_API_KEY_ENV)
         if not HUB_API_KEY:
-            raise Exception("$HUB_API_KEY not set")
+            raise Exception(f"${HUB_API_KEY_ENV} not set")
 
         hub = Hub(HUB_SERVER)
         user_info = hub.get_user_info(HUB_API_KEY)
-        logger.debug("got user info: ", user_info.__dict__)
+        logger.debug(f"got user info: {user_info.__dict__}")
 
         task = get_remote_task(
             id=task.id,
             owner_id=user_info.email,  # type: ignore
             server=task.remote,
         )
-        logger.debug("got remote task: ", task.__dict__)
+        logger.debug(f"got remote task: {task.__dict__}")
 
     logger.info("Saving remote tasks status to running...")
     task.status = "in progress"
@@ -92,8 +98,7 @@ def _solve_task(task_model: V1SolveTask):
         device = None
         for Device in Agent.supported_devices():
             if Device.name() == task_model.task.device.name:
-                logger.debug("found device: ", task_model.task.device.model_dump())
-                logger.debug("model config: ", task_model.task.device.config)
+                logger.debug(f"found device: {task_model.task.device.model_dump()}")
                 config = Device.connect_config_type()(**task_model.task.device.config)
                 device = Device.connect(config=config)
 
@@ -102,7 +107,7 @@ def _solve_task(task_model: V1SolveTask):
                 f"Device {task_model.task.device.name} provided in solve task, but not supported by agent"
             )
 
-        logger.debug("connected to device: ", device.__dict__)
+        logger.debug(f"connected to device: {device.__dict__}")
     else:
         raise ValueError("No device provided")
 
@@ -116,7 +121,7 @@ def _solve_task(task_model: V1SolveTask):
     try:
         fin_task = agent.solve_task(task=task, device=device, max_steps=task.max_steps)
     except Exception as e:
-        logger.info("error running agent: ", e)
+        logger.error(f"error running agent: {e}")
         task.status = "failed"
         task.error = str(e)
         task.save()
@@ -142,11 +147,11 @@ async def get_task(id: str):
 
 @retry(stop=stop_after_attempt(10), wait=wait_fixed(10))
 def get_remote_task(id: str, owner_id: str, server: str) -> Task:
-    HUB_API_KEY = os.environ.get("HUB_API_KEY")
+    HUB_API_KEY = os.environ.get(HUB_API_KEY_ENV)
     if not HUB_API_KEY:
-        raise Exception("$HUB_API_KEY not set")
+        raise Exception(f"${HUB_API_KEY_ENV} not set")
 
-    logger.debug("connecting to remote task: ", id, HUB_API_KEY)
+    logger.debug(f"connecting to remote task: {id} key: {HUB_API_KEY}")
     try:
         tasks = Task.find(
             id=id,
@@ -155,13 +160,19 @@ def get_remote_task(id: str, owner_id: str, server: str) -> Task:
         )
         if not tasks:
             raise Exception(f"Task {id} not found")
-        logger.debug("got remote task: ", tasks[0].__dict__)
+        logger.debug(f"got remote task: {tasks[0].__dict__}")
         return tasks[0]
     except Exception as e:
-        logger.error("error getting remote task: ", e)
+        logger.error(f"error getting remote task: {e}")
         raise e
 
 
 if __name__ == "__main__":
     port = os.getenv("SURF_PORT", "9090")
-    uvicorn.run("surfpizza.server:app", host="0.0.0.0", port=int(port), reload=True)
+    uvicorn.run(
+        "surfpizza.server:app",
+        host="0.0.0.0",
+        port=int(port),
+        reload=True,
+        reload_excludes=[".data"],
+    )

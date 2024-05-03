@@ -2,19 +2,19 @@
 
 [[package]]
 name = "agentdesk"
-version = "0.2.65"
+version = "0.2.70"
 description = "A desktop for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "agentdesk-0.2.65-py3-none-any.whl", hash = "sha256:6bb09a2f0cbde23f265c9f90efa6410bc03435714712cb60210cbf101efe74a1"},
-    {file = "agentdesk-0.2.65.tar.gz", hash = "sha256:6d08d7fd5c312848388cbf47cd4e5685e3fcf56252251db0b9e8456541adbadc"},
+    {file = "agentdesk-0.2.70-py3-none-any.whl", hash = "sha256:0e41f4c1946f215c13d501ad42ee93acf3f6f03bcec137b8a5c642fe77318766"},
+    {file = "agentdesk-0.2.70.tar.gz", hash = "sha256:7eecf9da5179ed4b8bfe514ba3eb21cb381c0e19644d4e26289137b2f38fd785"},
 ]
 
 [package.dependencies]
 boto3 = ">=1.34.28,<2.0.0"
 boto3-stubs = {version = ">=1.34.28,<2.0.0", extras = ["ec2"]}
-devicebay = ">=0.1.8,<0.2.0"
+devicebay = ">=0.1.16,<0.2.0"
 docker = ">=7.0.0,<8.0.0"
 fastapi = {version = ">=0.109.0,<0.110.0", extras = ["all"]}
 google-cloud-compute = ">=1.15.0,<2.0.0"
@@ -340,17 +340,17 @@ six = "*"
 
 [[package]]
 name = "boto3"
-version = "1.34.96"
+version = "1.34.97"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.96-py3-none-any.whl", hash = "sha256:fe3d039631074a96374a354764641b6623036b6ea15381b8a04ac0a193b8c1e0"},
-    {file = "boto3-1.34.96.tar.gz", hash = "sha256:42ea7d46688e7cb27259780b9da2cddcfaf2763ff5d327f4d54eac12edba8e72"},
+    {file = "boto3-1.34.97-py3-none-any.whl", hash = "sha256:6c8125310005255ea998bccc3e8353b4df81a96ab105c89c118461f6c54c07c8"},
+    {file = "boto3-1.34.97.tar.gz", hash = "sha256:60e5dda0b29805fb410bfda1d98e898edaebedac0e6983e9c57cb88e44dfa64e"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.96,<1.35.0"
+botocore = ">=1.34.97,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -359,13 +359,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "boto3-stubs"
-version = "1.34.96"
-description = "Type annotations for boto3 1.34.96 generated with mypy-boto3-builder 7.24.0"
+version = "1.34.97"
+description = "Type annotations for boto3 1.34.97 generated with mypy-boto3-builder 7.24.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3_stubs-1.34.96-py3-none-any.whl", hash = "sha256:131941815ee2c3008f3711f1ef284f321052fd6cb1d98a02cfa88e932d3a2b80"},
-    {file = "boto3_stubs-1.34.96.tar.gz", hash = "sha256:824a62997184e39c0fdf887b242c44a1d69ab87e2154c2b31d50c64afa8a4fc5"},
+    {file = "boto3_stubs-1.34.97-py3-none-any.whl", hash = "sha256:9f55147d67dc4a113a468f89f4a3dc75b9b3fa976f4f0988b8ba68a872e31e6a"},
+    {file = "boto3_stubs-1.34.97.tar.gz", hash = "sha256:8aebce123ca023c21bfd5b1f7dc96c53358368bb7224021619943ef7dd5b2947"},
 ]
 
 [package.dependencies]
@@ -417,7 +417,7 @@ bedrock-agent = ["mypy-boto3-bedrock-agent (>=1.34.0,<1.35.0)"]
 bedrock-agent-runtime = ["mypy-boto3-bedrock-agent-runtime (>=1.34.0,<1.35.0)"]
 bedrock-runtime = ["mypy-boto3-bedrock-runtime (>=1.34.0,<1.35.0)"]
 billingconductor = ["mypy-boto3-billingconductor (>=1.34.0,<1.35.0)"]
-boto3 = ["boto3 (==1.34.96)", "botocore (==1.34.96)"]
+boto3 = ["boto3 (==1.34.97)", "botocore (==1.34.97)"]
 braket = ["mypy-boto3-braket (>=1.34.0,<1.35.0)"]
 budgets = ["mypy-boto3-budgets (>=1.34.0,<1.35.0)"]
 ce = ["mypy-boto3-ce (>=1.34.0,<1.35.0)"]
@@ -764,13 +764,13 @@ xray = ["mypy-boto3-xray (>=1.34.0,<1.35.0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.96"
+version = "1.34.97"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.96-py3-none-any.whl", hash = "sha256:4c307f5772286f1ab58a91220ea8e180416a2ea0cc7e76983a6984e4ef8c212d"},
-    {file = "botocore-1.34.96.tar.gz", hash = "sha256:00e917cd8152d902a4771b9e1e4d0cf1ee096c90027ee35f2a76b6d394e2ada5"},
+    {file = "botocore-1.34.97-py3-none-any.whl", hash = "sha256:c98b1272e377c69e167cc68c0f2c9c79bc7a6098775eecdad41ee5a28de69324"},
+    {file = "botocore-1.34.97.tar.gz", hash = "sha256:e421b592add68547ed141643c8a8b4aa819a07059b85efd72e89b6758c956420"},
 ]
 
 [package.dependencies]
@@ -2070,13 +2070,13 @@ socks = ["socksio (==1.*)"]
 
 [[package]]
 name = "huggingface-hub"
-version = "0.22.2"
+version = "0.23.0"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
 optional = false
 python-versions = ">=3.8.0"
 files = [
-    {file = "huggingface_hub-0.22.2-py3-none-any.whl", hash = "sha256:3429e25f38ccb834d310804a3b711e7e4953db5a9e420cc147a5e194ca90fd17"},
-    {file = "huggingface_hub-0.22.2.tar.gz", hash = "sha256:32e9a9a6843c92f253ff9ca16b9985def4d80a93fb357af5353f770ef74a81be"},
+    {file = "huggingface_hub-0.23.0-py3-none-any.whl", hash = "sha256:075c30d48ee7db2bba779190dc526d2c11d422aed6f9044c5e2fdc2c432fdb91"},
+    {file = "huggingface_hub-0.23.0.tar.gz", hash = "sha256:7126dedd10a4c6fac796ced4d87a8cf004efc722a5125c2c09299017fa366fa9"},
 ]
 
 [package.dependencies]
@@ -2089,16 +2089,16 @@ tqdm = ">=4.42.1"
 typing-extensions = ">=3.7.4.3"
 
 [package.extras]
-all = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "aiohttp", "gradio", "jedi", "minijinja (>=1.0)", "mypy (==1.5.1)", "numpy", "pytest", "pytest-asyncio", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-vcr", "pytest-xdist", "ruff (>=0.3.0)", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3", "typing-extensions (>=4.8.0)", "urllib3 (<2.0)"]
+all = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "aiohttp", "fastapi", "gradio", "jedi", "minijinja (>=1.0)", "mypy (==1.5.1)", "numpy", "pytest", "pytest-asyncio", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-vcr", "pytest-xdist", "ruff (>=0.3.0)", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3", "typing-extensions (>=4.8.0)", "urllib3 (<2.0)"]
 cli = ["InquirerPy (==0.3.4)"]
-dev = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "aiohttp", "gradio", "jedi", "minijinja (>=1.0)", "mypy (==1.5.1)", "numpy", "pytest", "pytest-asyncio", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-vcr", "pytest-xdist", "ruff (>=0.3.0)", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3", "typing-extensions (>=4.8.0)", "urllib3 (<2.0)"]
+dev = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "aiohttp", "fastapi", "gradio", "jedi", "minijinja (>=1.0)", "mypy (==1.5.1)", "numpy", "pytest", "pytest-asyncio", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-vcr", "pytest-xdist", "ruff (>=0.3.0)", "soundfile", "types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3", "typing-extensions (>=4.8.0)", "urllib3 (<2.0)"]
 fastai = ["fastai (>=2.4)", "fastcore (>=1.3.27)", "toml"]
 hf-transfer = ["hf-transfer (>=0.1.4)"]
 inference = ["aiohttp", "minijinja (>=1.0)"]
 quality = ["mypy (==1.5.1)", "ruff (>=0.3.0)"]
 tensorflow = ["graphviz", "pydot", "tensorflow"]
 tensorflow-testing = ["keras (<3.0)", "tensorflow"]
-testing = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "aiohttp", "gradio", "jedi", "minijinja (>=1.0)", "numpy", "pytest", "pytest-asyncio", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-vcr", "pytest-xdist", "soundfile", "urllib3 (<2.0)"]
+testing = ["InquirerPy (==0.3.4)", "Jinja2", "Pillow", "aiohttp", "fastapi", "gradio", "jedi", "minijinja (>=1.0)", "numpy", "pytest", "pytest-asyncio", "pytest-cov", "pytest-env", "pytest-rerunfailures", "pytest-vcr", "pytest-xdist", "soundfile", "urllib3 (<2.0)"]
 torch = ["safetensors", "torch"]
 typing = ["types-PyYAML", "types-requests", "types-simplejson", "types-toml", "types-tqdm", "types-urllib3", "typing-extensions (>=4.8.0)"]
 
@@ -2356,13 +2356,13 @@ adal = ["adal (>=1.0.2)"]
 
 [[package]]
 name = "litellm"
-version = "1.35.34"
+version = "1.35.36"
 description = "Library to easily interface with LLM API providers"
 optional = false
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 files = [
-    {file = "litellm-1.35.34-py3-none-any.whl", hash = "sha256:832849e6e9cb706fe8163b7362fedf35f2b46bd6409e5b3678fd645d1cb0436e"},
-    {file = "litellm-1.35.34.tar.gz", hash = "sha256:57194748f51ec55bf38b4260a374dbfcf832b8347c8f16ca75da5b852c089318"},
+    {file = "litellm-1.35.36-py3-none-any.whl", hash = "sha256:b7c6b4f25c1b3abf4e0cfecad895f9cd1f5daa7a17e3912dfe88b4f637993f56"},
+    {file = "litellm-1.35.36.tar.gz", hash = "sha256:e8be7ed4de61aad21c44cf153128cd8549a4e7a6d6067697afe982f788b55dec"},
 ]
 
 [package.dependencies]
@@ -2511,19 +2511,19 @@ files = [
 
 [[package]]
 name = "mllm"
-version = "0.1.8"
+version = "0.1.14"
 description = "Multimodal Large Language Models"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "mllm-0.1.8-py3-none-any.whl", hash = "sha256:ae641ded325532e329955d3f13c251c5c9b8788d72f6d665ffcd240da1485d79"},
-    {file = "mllm-0.1.8.tar.gz", hash = "sha256:afad52ee9cf9c10d1a20e7e11434c3386aad947752fb5c80d8732b28ee694c13"},
+    {file = "mllm-0.1.14-py3-none-any.whl", hash = "sha256:a19504a34b1d4b080345214163d4d71192c8ce865c525ce49f83368e8a708163"},
+    {file = "mllm-0.1.14.tar.gz", hash = "sha256:2df801f8a1ee9403df686805b502fd6e2bda510ff5a93df0af7b7c13f8f6168e"},
 ]
 
 [package.dependencies]
 litellm = ">=1.35.29,<2.0.0"
 tenacity = ">=8.2.3,<9.0.0"
-threadmem = ">=0.2.25,<0.3.0"
+threadmem = ">=0.2.27,<0.3.0"
 
 [[package]]
 name = "multidict"
@@ -2626,13 +2626,13 @@ files = [
 
 [[package]]
 name = "mypy-boto3-ec2"
-version = "1.34.96"
-description = "Type annotations for boto3.EC2 1.34.96 service generated with mypy-boto3-builder 7.24.0"
+version = "1.34.97"
+description = "Type annotations for boto3.EC2 1.34.97 service generated with mypy-boto3-builder 7.24.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "mypy_boto3_ec2-1.34.96-py3-none-any.whl", hash = "sha256:e9bbed9c946d9e5f7ae157a2b21c7d564b0a9cde7d272c27bc4824ac1f99920f"},
-    {file = "mypy_boto3_ec2-1.34.96.tar.gz", hash = "sha256:094991853560d678d2b8ab3e1cd27bbb6e780456febddb5f6f2e7281a9b6ce17"},
+    {file = "mypy_boto3_ec2-1.34.97-py3-none-any.whl", hash = "sha256:fea2cb78e0a55ad77b79fac0702d0c28c17798fc116bf7b84cbea421c5fd9b9c"},
+    {file = "mypy_boto3_ec2-1.34.97.tar.gz", hash = "sha256:a38be6ad39bb18839ae349a0d1a6fe1c87ab8fe9cbc4a28a87aa5a972eedc361"},
 ]
 
 [package.dependencies]
@@ -2688,13 +2688,13 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "openai"
-version = "1.25.0"
+version = "1.25.1"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-1.25.0-py3-none-any.whl", hash = "sha256:d0cfdf6afb31a5dabf3b95966cb31f3c757a0edaf3228715409cb404b9933de0"},
-    {file = "openai-1.25.0.tar.gz", hash = "sha256:22c35b26b8281cd2759b1a4c05ac99e2f2b26a9df71f90a0b4ddb75aa27adc81"},
+    {file = "openai-1.25.1-py3-none-any.whl", hash = "sha256:aa2f381f476f5fa4df8728a34a3e454c321caa064b7b68ab6e9daa1ed082dbf9"},
+    {file = "openai-1.25.1.tar.gz", hash = "sha256:f561ce86f4b4008eb6c78622d641e4b7e1ab8a8cdb15d2f0b2a49942d40d21a8"},
 ]
 
 [package.dependencies]
@@ -3918,17 +3918,17 @@ files = [
 
 [[package]]
 name = "skillpacks"
-version = "0.1.8"
+version = "0.1.12"
 description = "Pluggable skills for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "skillpacks-0.1.8-py3-none-any.whl", hash = "sha256:23c78d21c8647eda1948a68767007943cc83341a1e5f5595b326409008f2de67"},
-    {file = "skillpacks-0.1.8.tar.gz", hash = "sha256:e7c72202920f3d4d54296cd0e8608e37305a1479bea068472ede5fc2ef7b36f4"},
+    {file = "skillpacks-0.1.12-py3-none-any.whl", hash = "sha256:432641eb2c75b768d05b83804915eabf121a5bbc5e4a7dcd3fca41d7d61b330e"},
+    {file = "skillpacks-0.1.12.tar.gz", hash = "sha256:a47036e70b2442dba17dd800c50175e8ff97b3606e81006b01ad80014b2a7a00"},
 ]
 
 [package.dependencies]
-mllm = ">=0.1.8,<0.2.0"
+mllm = ">=0.1.14,<0.2.0"
 pydantic = ">=2.6.1,<3.0.0"
 sqlalchemy = ">=2.0.27,<3.0.0"
 
@@ -4068,17 +4068,17 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.103"
+version = "0.1.120"
 description = "A toolkit to build GUI surfing AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.103-py3-none-any.whl", hash = "sha256:080d6f43b2fcfc411bdef792d44c6ef6124e69ba118beea84984ced91f1e934f"},
-    {file = "surfkit-0.1.103.tar.gz", hash = "sha256:d5b2b20d5fbd03f3dee7ecdb967dd63de6fac7da85b0455bf169009bb7a14f14"},
+    {file = "surfkit-0.1.120-py3-none-any.whl", hash = "sha256:d0ded04fc14902dd236794ab57b6bdbe1e203449f6e8d475ef2830f5c00a74ee"},
+    {file = "surfkit-0.1.120.tar.gz", hash = "sha256:43cd2794bedb05cb0a5488925b6dfad8548207e647dd5c57d3b70d62d3e1c97e"},
 ]
 
 [package.dependencies]
-agentdesk = ">=0.2.65,<0.3.0"
+agentdesk = ">=0.2.70,<0.3.0"
 devicebay = ">=0.1.11,<0.2.0"
 docker = ">=7.0.0,<8.0.0"
 kubernetes = ">=29.0.0,<30.0.0"
@@ -4088,8 +4088,8 @@ pydantic = ">=2.6.4,<3.0.0"
 pyyaml = ">=6.0.1,<7.0.0"
 rich = ">=13.7.1,<14.0.0"
 rootpath = ">=0.1.1,<0.2.0"
-skillpacks = ">=0.1.3,<0.2.0"
-taskara = ">=0.1.47,<0.2.0"
+skillpacks = ">=0.1.10,<0.2.0"
+taskara = ">=0.1.53,<0.2.0"
 threadmem = ">=0.2.11,<0.3.0"
 tiktoken = ">=0.6.0,<0.7.0"
 toolfuse = ">=0.1.15,<0.2.0"
@@ -4110,21 +4110,21 @@ widechars = ["wcwidth"]
 
 [[package]]
 name = "taskara"
-version = "0.1.47"
+version = "0.1.53"
 description = "Task management for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "taskara-0.1.47-py3-none-any.whl", hash = "sha256:6eacc9fab16c2b9b527784ce6f2e1bb58fccb16015d5fff919a11630ff7b89b0"},
-    {file = "taskara-0.1.47.tar.gz", hash = "sha256:5c884676ea37bb959b79376cf98a81c5774a74f9f4f15dda2f2338490abb72f1"},
+    {file = "taskara-0.1.53-py3-none-any.whl", hash = "sha256:4dcce43bda2824ec7ba54d860ae6c188378527e1b674d4d3b77be7afad16d073"},
+    {file = "taskara-0.1.53.tar.gz", hash = "sha256:3b62d401569e5501bc8f833a8cb1b996bafd231405e1801934d2ae2f70d85624"},
 ]
 
 [package.dependencies]
 devicebay = ">=0.1.16,<0.2.0"
 pydantic = ">=2.6.4,<3.0.0"
-skillpacks = ">=0.1.8,<0.2.0"
+skillpacks = ">=0.1.12,<0.2.0"
 sqlalchemy = ">=2.0.29,<3.0.0"
-threadmem = ">=0.2.25,<0.3.0"
+threadmem = ">=0.2.26,<0.3.0"
 
 [[package]]
 name = "tenacity"
@@ -4156,13 +4156,13 @@ tests = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "threadmem"
-version = "0.2.25"
+version = "0.2.27"
 description = "Thread memory for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "threadmem-0.2.25-py3-none-any.whl", hash = "sha256:0a0ba1fceb7afd858cb8932a8d7bdc761a35a8bad30336fb4d4b32fc07425e3d"},
-    {file = "threadmem-0.2.25.tar.gz", hash = "sha256:04599d2f2089c67b2e232a5c275bf180b5e7b2fb2662a2c30d950fc44e4896b8"},
+    {file = "threadmem-0.2.27-py3-none-any.whl", hash = "sha256:75d69ccb617c7ee80204f569cd4397946461fcf07ec5e843d061253bbbdadc28"},
+    {file = "threadmem-0.2.27.tar.gz", hash = "sha256:ed24c9674fe7aebf3170dd2eb08ac685ddd5526e73272ad0ab27b68eb54d0ca1"},
 ]
 
 [package.dependencies]
@@ -4433,13 +4433,13 @@ testing = ["build[virtualenv] (>=1.0.3)", "covdefaults (>=2.3)", "detect-test-po
 
 [[package]]
 name = "tqdm"
-version = "4.66.2"
+version = "4.66.4"
 description = "Fast, Extensible Progress Meter"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "tqdm-4.66.2-py3-none-any.whl", hash = "sha256:1ee4f8a893eb9bef51c6e35730cebf234d5d0b6bd112b0271e10ed7c24a02bd9"},
-    {file = "tqdm-4.66.2.tar.gz", hash = "sha256:6cd52cdf0fef0e0f543299cfc96fec90d7b8a7e88745f411ec33eb44d5ed3531"},
+    {file = "tqdm-4.66.4-py3-none-any.whl", hash = "sha256:b75ca56b413b030bc3f00af51fd2c1a1a5eac6a0c1cca83cbb37a5c52abce644"},
+    {file = "tqdm-4.66.4.tar.gz", hash = "sha256:e4d936c9de8727928f3be6079590e97d9abfe8d39a590be678eb5919ffc186bb"},
 ]
 
 [package.dependencies]
@@ -5016,4 +5016,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b397750405e2ff8b9f5123a4c7bacf0683e8dc288d459026f63145ec9ff113cb"
+content-hash = "a2d9882eaf0779009ed1df5db0731a0a443a3f80809fb88ac7b93f810b5da71e"

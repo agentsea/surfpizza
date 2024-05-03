@@ -20,8 +20,9 @@ from tenacity import (
 )
 from rich.json import JSON
 
-logger: Final = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+logger: Final = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 console = Console(force_terminal=True)
 
@@ -169,7 +170,7 @@ class SurfPizza(TaskAgent):
             task.post_message(
                 "assistant",
                 "current image",
-                images=[f"data:image/jpeg;base64,{screenshot_b64}"],
+                images=[f"data:image/png;base64,{screenshot_b64}"],
                 thread="debug",
             )
 
@@ -183,7 +184,7 @@ class SurfPizza(TaskAgent):
                     f"Here is a screenshot of the current desktop with the mouse coordinates ({x}, {y}). "
                     "Please select an action from the provided schema."
                 ),
-                images=[screenshot_b64],
+                images=[f"data:image/png;base64,{screenshot_b64}"],
             )
             _thread.add_msg(msg)
 
