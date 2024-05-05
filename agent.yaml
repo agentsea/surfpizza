@@ -1,21 +1,23 @@
-api_version: v1alpha
+
+api_version: v1
 kind: TaskAgent
 name: "SurfPizza"
-description: "A GUI surfer that uses dots for grounding"
+description: "A GUI surfer which uses coordinate dots for grounding"
 cmd: "poetry run python -m surfpizza.server"
-image: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:latest"
+img_repo: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza"
 versions:
   latest: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:latest"
 runtimes:
   - type: "agent"
     preference:
+      - "process"
       - "docker"
       - "kube"
 llm_providers:
   preference:
     - "gpt-4-turbo"
     - "anthropic/claude-3-opus-20240229"
-public: True
+public: False
 icon: https://storage.googleapis.com/guisurfer-assets/SurfPizza.webp
 resource_requests:
   cpu: "1"

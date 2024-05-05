@@ -1,3 +1,4 @@
+
 import os
 from typing import List, Final
 import logging
@@ -15,7 +16,7 @@ import uvicorn
 from .agent import Agent, router
 
 logger: Final = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(int(os.getenv("LOG_LEVEL", str(logging.DEBUG))))
 
 
 @asynccontextmanager
@@ -49,9 +50,6 @@ async def health():
 @app.post("/v1/tasks")
 async def solve_task(background_tasks: BackgroundTasks, task_model: V1SolveTask):
     logger.info(f"solving task: {task_model.model_dump()}")
-    print("\n\n\nsolving task: ", task_model.model_dump())
-    for key, value in os.environ.items():
-        print(f"{key}: {value}")
     try:
         # TODO: we need to find a way to do this earlier but get status back
         router.check_model()
@@ -66,7 +64,6 @@ async def solve_task(background_tasks: BackgroundTasks, task_model: V1SolveTask)
 
     background_tasks.add_task(_solve_task, task_model)
     logger.info("created background task...")
-    print("\n\n\ncreated background task...")
 
 
 def _solve_task(task_model: V1SolveTask):

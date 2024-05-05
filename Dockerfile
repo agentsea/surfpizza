@@ -10,4 +10,4 @@ RUN poetry install
 EXPOSE 9090
 
 # Run the application
-CMD ["uvicorn", "surfpizza.server:app", "--host=0.0.0.0", "--port=9090", "--log-level", "debug"]
+CMD ["poetry", "run", "uvicorn", "surfpizza.server:app", "--host=0.0.0.0", "--port=9090", "--log-level", "debug"]

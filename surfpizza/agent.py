@@ -3,10 +3,11 @@ import logging
 from typing import Final
 import traceback
 import time
+import os
 
 from devicebay import Device
 from agentdesk.device import Desktop
-from rich.console import Console
+from toolfuse.util import AgentUtils
 from pydantic import BaseModel
 from surfkit.agent import TaskAgent
 from taskara import Task
@@ -19,14 +20,15 @@ from tenacity import (
     before_sleep_log,
 )
 from rich.json import JSON
+from rich.console import Console
+
+from .tool import SemanticDesktop, router
 
 logging.basicConfig(level=logging.INFO)
 logger: Final = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(int(os.getenv("LOG_LEVEL", str(logging.DEBUG))))
 
 console = Console(force_terminal=True)
-
-router = Router.from_env()
 
 
 class SurfPizzaConfig(BaseModel):
@@ -65,23 +67,30 @@ class SurfPizza(TaskAgent):
         if not isinstance(device, Desktop):
             raise ValueError("Only desktop devices supported")
 
+        # Wrap the standard desktop in our special tool
+        semdesk = SemanticDesktop(task=task, desktop=device)
+
+        # Add standard agent utils to the device
+        semdesk.merge(AgentUtils())
+
         # Open a site if that is in the parameters
         site = task._parameters.get("site") if task._parameters else None
         if site:
             console.print(f"▶️ opening site url: {site}", style="blue")
             task.post_message("assistant", f"opening site url {site}...")
-            device.open_url(site)
+            semdesk.desktop.open_url(site)
             console.print("waiting for browser to open...", style="blue")
             time.sleep(5)
 
         # Get the json schema for the tools
-        tools = device.json_schema()
+        tools = semdesk.desktop.json_schema()
         console.print("tools: ", style="purple")
         console.print(JSON.from_data(tools))
 
         # Get info about the desktop
-        info = device.info()
+        info = semdesk.desktop.info()
         screen_size = info["screen_size"]
+        console.print(f"Screen size: {screen_size}")
 
         # Create our thread and start with a system prompt
         thread = RoleThread()
@@ -89,20 +98,22 @@ class SurfPizza(TaskAgent):
             role="user",
             msg=(
                 "You are an AI assistant which uses a devices to accomplish tasks. "
-                f"Your current task is {task.description}, and your available tools are {device.json_schema()} "
-                f"Please return the result chosen action as raw JSON adhearing to the schema {V1ActionSelection.model_json_schema()} "
+                f"Your current task is {task.description}, and your available tools are {semdesk.json_schema()} "
+                "For each screenshot I will send you please return the result chosen action as  "
+                f"raw JSON adhearing to the schema {V1ActionSelection.model_json_schema()} "
+                "Let me know when you are ready and I'll send you the first screenshot"
             ),
         )
         response = router.chat(thread, namespace="system")
-        console.print(f"\nsystem prompt response: {response}", style="blue")
+        console.print(f"system prompt response: {response}", style="blue")
         thread.add_msg(response.msg)
 
         # Loop to run actions
         for i in range(max_steps):
-            console.print(f"\n\n-------\n\nstep {i + 1}\n", style="green")
+            console.print(f"-------step {i + 1}", style="green")
 
             try:
-                thread, done = self.take_action(device, task, thread, screen_size)
+                thread, done = self.take_action(semdesk, task, thread)
             except Exception as e:
                 console.print(f"Error: {e}", style="red")
                 task.status = "failed"
@@ -132,10 +143,9 @@ class SurfPizza(TaskAgent):
     )
     def take_action(
         self,
-        desktop: Desktop,
+        semdesk: SemanticDesktop,
         task: Task,
         thread: RoleThread,
-        screen_size: dict,
     ) -> Tuple[RoleThread, bool]:
         """Take an action
 
@@ -143,7 +153,6 @@ class SurfPizza(TaskAgent):
             desktop (SemanticDesktop): Desktop to use
             task (str): Task to accomplish
             thread (RoleThread): Role thread for the task
-            screen_size (dict): Size of the screen
 
         Returns:
             bool: Whether the task is complete
@@ -166,7 +175,7 @@ class SurfPizza(TaskAgent):
             _thread.remove_images()
 
             # Take a screenshot of the desktop and post a message with it
-            screenshot_b64 = desktop.take_screenshot()
+            screenshot_b64 = semdesk.desktop.take_screenshot()
             task.post_message(
                 "assistant",
                 "current image",
@@ -175,9 +184,10 @@ class SurfPizza(TaskAgent):
             )
 
             # Get the current mouse coordinates
-            x, y = desktop.mouse_coordinates()
+            x, y = semdesk.desktop.mouse_coordinates()
             console.print(f"mouse coordinates: ({x}, {y})", style="white")
 
+            # Craft the message asking the MLLM for an action
             msg = RoleMessage(
                 role="user",
                 text=(
@@ -226,7 +236,7 @@ class SurfPizza(TaskAgent):
                 return _thread, True
 
             # Find the selected action in the tool
-            action = desktop.find_action(selection.action.name)
+            action = semdesk.find_action(selection.action.name)
             console.print(f"found action: {action}", style="blue")
             if not action:
                 console.print(f"action returned not found: {selection.action.name}")
@@ -234,7 +244,7 @@ class SurfPizza(TaskAgent):
 
             # Take the selected action
             try:
-                action_response = desktop.use(action, **selection.action.parameters)
+                action_response = semdesk.use(action, **selection.action.parameters)
             except Exception as e:
                 raise ValueError(f"Trouble using action: {e}")
 
@@ -248,7 +258,7 @@ class SurfPizza(TaskAgent):
             task.record_action(
                 prompt=response.prompt_id,
                 action=selection.action,
-                tool=desktop.ref(),
+                tool=semdesk.ref(),
                 result=action_response,
                 agent_id=self.name(),
                 model="TODO",
