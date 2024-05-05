@@ -11,8 +11,8 @@ def create_grid_image(
     image_width: int,
     image_height: int,
     color_circle: str = "red",
-    color_number: str = "yellow",
-    n: int = 6,
+    color_text: str = "yellow",
+    num_cells: int = 6,
 ) -> Image.Image:
     """Create the pizza grid image.
 
@@ -20,14 +20,14 @@ def create_grid_image(
         image_width (int): Width of the image.
         image_height (int): Height of the image.
         color_circle (str): Color of the circles. Defaults to 'red'
-        color_number (str): Color of the numbers. Defaults to 'yellow'
-        n (int): The number of cells in each dimension. Defaults to 6.
+        color_text (str): Color of the text. Defaults to 'yellow'
+        num_cells (int): The number of cells in each dimension. Defaults to 6.
 
     Returns:
         Image.Image: The image grid
     """
-    cell_width = image_width // n
-    cell_height = image_height // n
+    cell_width = image_width // num_cells
+    cell_height = image_height // num_cells
     font_size = max(cell_height // 5, 30)
     circle_radius = font_size * 7 // 10
 
@@ -39,8 +39,8 @@ def create_grid_image(
     font = ImageFont.truetype("fonts/arialbd.ttf", font_size)
 
     # Set the number of cells in each dimension
-    num_cells_x = n - 1
-    num_cells_y = n - 1
+    num_cells_x = num_cells - 1
+    num_cells_y = num_cells - 1
 
     # Draw the numbers in the center of each cell
     for i in range(num_cells_x):
@@ -60,20 +60,30 @@ def create_grid_image(
             )
             offset_x = font_size / 4 if number < 10 else font_size / 2
             draw.text(
-                (x - offset_x, y - font_size / 2), text, font=font, fill=color_number
+                (x - offset_x, y - font_size / 2), text, font=font, fill=color_text
             )
 
     return img
 
 
-def zoom_in(img: Image.Image, n: int, index: int) -> Image.Image:
+def zoom_in(img: Image.Image, num_cells: int, selected: int) -> Image.Image:
+    """Zoom in on a cell.
+
+    Args:
+        img (Image.Image): The original screenshot.
+        num_cells (int): The number of dots used to create the grid.
+        selected (int): The number of the cell to zoom in on.
+
+    Returns:
+        Image.Image: The zoomed in image.
+    """
     width, height = img.size
     # we need to calculate the cell size
-    cell_width = width // n
-    cell_height = height // n
+    cell_width = width // num_cells
+    cell_height = height // num_cells
     # we need to calculate the x and y coordinates of the cell
-    x = ((index - 1) // (n - 1)) * cell_width
-    y = ((index - 1) % (n - 1)) * cell_height
+    x = ((selected - 1) // (num_cells - 1)) * cell_width
+    y = ((selected - 1) % (num_cells - 1)) * cell_height
     # we need to calculate the x and y coordinates of the top left corner of the cell
     top_left = (x, y)
     # we need to calculate the x and y coordinates of the bottom right corner of the cell
@@ -85,14 +95,14 @@ def zoom_in(img: Image.Image, n: int, index: int) -> Image.Image:
 
 
 def superimpose_images(
-    base: Image.Image, layer: Image.Image, opacity: float
+    base: Image.Image, layer: Image.Image, opacity: float = 1
 ) -> Image.Image:
     """
 
     Args:
         base (Image.Image): Base image
         layer (Image.Image): Layered image
-        opacity (float): How much opacity the layer should have
+        opacity (float): How much opacity the layer should have. Defaults to 1.
 
     Returns:
         Image.Image: The superimposed image
@@ -125,7 +135,7 @@ def superimpose_images(
     return merged_image
 
 
-def image_to_base64(img: Image.Image, image_format="PNG") -> str:
+def image_to_b64(img: Image.Image, image_format="PNG") -> str:
     """Converts a PIL Image to a base64-encoded string with MIME type included.
 
     Args:
@@ -145,7 +155,7 @@ def image_to_base64(img: Image.Image, image_format="PNG") -> str:
     return f"data:{mime_type};base64,{base64_encoded_data}"
 
 
-def base64_to_image(base64_str: str) -> Image.Image:
+def b64_to_image(base64_str: str) -> Image.Image:
     """Converts a base64 string to a PIL Image object.
 
     Args:
