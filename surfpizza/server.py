@@ -1,4 +1,3 @@
-
 import os
 from typing import List, Final
 import logging
@@ -124,6 +123,7 @@ def _solve_task(task_model: V1SolveTask):
         task.save()
         task.post_message("assistant", f"Failed to run task '{task.description}': {e}")
         raise e
+
     if fin_task:
         fin_task.save()
 

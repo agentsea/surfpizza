@@ -11,7 +11,6 @@ from toolfuse.util import AgentUtils
 from pydantic import BaseModel
 from surfkit.agent import TaskAgent
 from taskara import Task
-from mllm import Router
 from skillpacks.server.models import V1ActionSelection
 from threadmem import RoleThread, RoleMessage
 from tenacity import (
@@ -82,15 +81,24 @@ class SurfPizza(TaskAgent):
             console.print("waiting for browser to open...", style="blue")
             time.sleep(5)
 
-        # Get the json schema for the tools
-        tools = semdesk.desktop.json_schema()
-        console.print("tools: ", style="purple")
-        console.print(JSON.from_data(tools))
-
         # Get info about the desktop
         info = semdesk.desktop.info()
         screen_size = info["screen_size"]
         console.print(f"Screen size: {screen_size}")
+
+        # Get the json schema for the tools, excluding actions that aren't useful
+        tools = semdesk.json_schema(
+            exclude_names=[
+                "move_mouse",
+                "click",
+                "drag_mouse",
+                "double_click",
+                "mouse_coordinates",
+                "take_screenshot",
+            ]
+        )
+        console.print("tools: ", style="purple")
+        console.print(JSON.from_data(tools))
 
         # Create our thread and start with a system prompt
         thread = RoleThread()
@@ -98,7 +106,7 @@ class SurfPizza(TaskAgent):
             role="user",
             msg=(
                 "You are an AI assistant which uses a devices to accomplish tasks. "
-                f"Your current task is {task.description}, and your available tools are {semdesk.json_schema()} "
+                f"Your current task is {task.description}, and your available tools are {tools} "
                 "For each screenshot I will send you please return the result chosen action as  "
                 f"raw JSON adhearing to the schema {V1ActionSelection.model_json_schema()} "
                 "Let me know when you are ready and I'll send you the first screenshot"
@@ -191,8 +199,7 @@ class SurfPizza(TaskAgent):
             msg = RoleMessage(
                 role="user",
                 text=(
-                    f"Here is a screenshot of the current desktop with the mouse coordinates ({x}, {y}). "
-                    "Please select an action from the provided schema."
+                    "Here is a screenshot of the current desktop, please select an action from the provided schema."
                 ),
                 images=[f"data:image/png;base64,{screenshot_b64}"],
             )
