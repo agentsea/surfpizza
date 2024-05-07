@@ -59,8 +59,10 @@ class SemanticDesktop(Tool):
         """Click on an object on the screen
 
         Args:
-            description (str): The description of the object, for example "a round dark blue icon with the text 'Home'", please be a generic as possible
-            type (str): Type of click, can be 'single' for a single click or 'double' for a double click like when you launch an app from the desktop.
+            description (str): The description of the object, for example
+                "a round dark blue icon with the text 'Home'", please be a generic as possible
+            type (str): Type of click, can be 'single' for a single click or
+                'double' for a double click. If you need to launch an application from the desktop choose 'double'
         """
         if type != "single" and type != "double":
             raise ValueError("type must be'single' or 'double'")
@@ -79,10 +81,6 @@ class SemanticDesktop(Tool):
                 ...,
                 description=f"Number of the cell containing the element we wish to select",
             )
-            # exact: bool = Field(
-            #     ...,
-            #     description=f"Whether the {color_circle} dot is exactly over the element we wish to select",
-            # )
 
         current_img_b64 = self.desktop.take_screenshot()
         current_img = b64_to_image(current_img_b64)
@@ -198,8 +196,10 @@ class SemanticDesktop(Tool):
         """Click mouse button
 
         Args:
-            x (Optional[int], optional): X coordinate to move to, if not provided it will click on current location. Defaults to None.
-            y (Optional[int], optional): Y coordinate to move to, if not provided it will click on current location. Defaults to None.
+            x (Optional[int], optional): X coordinate to move to, if not provided
+                it will click on current location. Defaults to None.
+            y (Optional[int], optional): Y coordinate to move to, if not provided
+                it will click on current location. Defaults to None.
             button (str, optional): Button to click. Defaults to "left".
         """
         # TODO: fix click cords in agentd

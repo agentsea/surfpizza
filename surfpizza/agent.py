@@ -202,6 +202,7 @@ class SurfPizza(TaskAgent):
                 role="user",
                 text=(
                     "Here is a screenshot of the current desktop, please select an action from the provided schema."
+                    "Please return just the raw JSON"
                 ),
                 images=[f"data:image/png;base64,{screenshot_b64}"],
             )
