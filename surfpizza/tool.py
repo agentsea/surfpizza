@@ -2,6 +2,7 @@ import os
 import time
 import logging
 import time
+import shutil
 
 from agentdesk.device import Desktop
 from toolfuse import action
@@ -14,12 +15,14 @@ from mllm import Router, RoleThread, RoleMessage
 from pydantic import BaseModel, Field
 
 from .img import (
-    create_grid_image,
+    create_grid_image_by_size,
+    create_grid_image_by_num_cells,
     zoom_in,
     superimpose_images,
     b64_to_image,
     image_to_b64,
     load_image_base64,
+    divide_image_into_cells,
     Box,
 )
 
@@ -46,36 +49,40 @@ class SemanticDesktop(Tool):
 
         os.makedirs("./.img", exist_ok=True)
         os.makedirs("./temp", exist_ok=True)
+        shutil.rmtree("./.data/images")
         os.makedirs("./.data/images", exist_ok=True)
 
         self.task = task
 
     @action
-    def click_object(self, description: str, type: str = "single") -> None:
+    def click_object(self, description: str, type: str) -> None:
         """Click on an object on the screen
 
         Args:
             description (str): The description of the object, for example "a round dark blue icon with the text 'Home'", please be a generic as possible
-            type (str, optinonal): Type of click, can be 'single' or 'double'. Defaults to "single".
+            type (str): Type of click, can be 'single' for a single click or 'double' for a double click like when you launch an app from the desktop.
         """
+        if type != "single" and type != "double":
+            raise ValueError("type must be'single' or 'double'")
+
         logging.debug("clicking icon with description ", description)
 
-        max_depth = int(os.getenv("MAX_DEPTH", 4))
+        max_depth = int(os.getenv("MAX_DEPTH", 3))
         color_text = os.getenv("COLOR_TEXT", "yellow")
         color_circle = os.getenv("COLOR_CIRCLE", "red")
-        num_cells = int(os.getenv("NUM_CELLS", 6))
+        num_cells = int(os.getenv("NUM_CELLS", 3))
 
         class ZoomSelection(BaseModel):
             """Zoom selection model"""
 
             number: int = Field(
                 ...,
-                description=f"Number of the {color_circle} dot nearest the element we wish to select",
+                description=f"Number of the cell containing the element we wish to select",
             )
-            exact: bool = Field(
-                ...,
-                description=f"Whether the {color_circle} dot is exactly over the element we wish to select",
-            )
+            # exact: bool = Field(
+            #     ...,
+            #     description=f"Whether the {color_circle} dot is exactly over the element we wish to select",
+            # )
 
         current_img_b64 = self.desktop.take_screenshot()
         current_img = b64_to_image(current_img_b64)
@@ -89,6 +96,8 @@ class SemanticDesktop(Tool):
 
         for i in range(max_depth):
             logger.info(f"zoom depth {i}")
+            current_img.save(f"./.data/images/current_img_{i}.png")
+
             screenshot_b64 = image_to_b64(current_img)
             self.task.post_message(
                 role="assistant",
@@ -97,44 +106,44 @@ class SemanticDesktop(Tool):
                 images=[screenshot_b64],
             )
 
-            current_dim = current_img.size
-            grid_img = create_grid_image(
-                image_width=current_dim[0],
-                image_height=current_dim[1],
-                color_circle=color_circle,
-                color_text=color_text,
-                num_cells=num_cells,
+            # current_dim = current_img.size
+            # grid_img = create_grid_image_by_num_cells(
+            #     image_width=current_dim[0],
+            #     image_height=current_dim[1],
+            #     color_circle=color_circle,
+            #     color_text=color_text,
+            #     num_cells=4,
+            # )
+
+            # merged_image = superimpose_images(current_img.copy(), grid_img)
+
+            # merged_image_b64 = image_to_b64(merged_image)
+            composite, cropped_imgs, boxes = divide_image_into_cells(
+                current_img, num_cells=num_cells
             )
-
-            merged_image = superimpose_images(current_img, grid_img)
-
-            merged_image_b64 = image_to_b64(merged_image)
             self.task.post_message(
                 role="assistant",
                 msg=f"Pizza for depth {i}",
                 thread="debug",
-                images=[merged_image_b64],
+                images=[image_to_b64(composite)],
             )
-            merged_image.save(f"./.data/images/merged{i}.png")
+            composite.save(f"./.data/images/merged{i}.png")
+            composite_b64 = image_to_b64(composite)
 
-            example_img = load_image_base64("./.data/prompt/merged0.png")
+            # example_img = load_image_base64("./.data/prompt/merged0.png")
 
             prompt = (
                 "You are an experienced AI trained to find the elements on the screen."
-                "I am going to send you three images, the first image is an example of the task. The second image is a screenshot of the web application, and on the "
-                f"third image I have taked the same screenshot drawn some big {color_text} numbers on {color_circle} circles on this image "
+                "I am going to send you two images, the first image is a screenshot of the web application, and on the "
+                "second image I have taken the same screenshot sliced it into cells with a number next to each cell "
                 "to help you to find required elements. "
-                f"Please tell me the closest big {color_text} number to {description}. "
+                f"Please select the number of the cell which contains '{description}' "
                 f"Please return you response as raw JSON following the schema {ZoomSelection.model_json_schema()} "
-                "I also ask that you specify if the red dot is directly over the element or if it is just nearby. "
-                'For instance, lets look at the first image and say we are looking for "a gray trash can icon", I would return {"number": 3, "exact": false}, because '
-                "the red dot labeld 3 is closest to the element, but not exactly over it. "
-                f"Now please look at the second and third images and do that for '{description}'"
             )
             msg = RoleMessage(
                 role="user",
                 text=prompt,
-                images=[example_img, screenshot_b64, merged_image_b64],
+                images=[screenshot_b64, composite_b64],
             )
             thread.add_msg(msg)
 
@@ -154,28 +163,34 @@ class SemanticDesktop(Tool):
             )
             console.print(JSON(zoom_resp.model_dump_json()))
 
-            if zoom_resp.exact:
-                click_x, click_y = bounding_boxes[-1].center()
-                logger.info(f"clicking exact coords {click_x}, {click_y}")
-                self.task.post_message(
-                    role="assistant",
-                    msg=f"Clicking coordinates {click_x}, {click_y}",
-                    thread="debug",
-                )
-                self._click_coords(x=click_x, y=click_y, type=type)
-                return
+            # if zoom_resp.exact:
+            #     click_x, click_y = bounding_boxes[-1].center()
+            #     logger.info(f"clicking exact coords {click_x}, {click_y}")
+            #     self.task.post_message(
+            #         role="assistant",
+            #         msg=f"Clicking coordinates {click_x}, {click_y}",
+            #         thread="debug",
+            #     )
+            #     self._click_coords(x=click_x, y=click_y, type=type)
+            #     return
 
-            current_img, new_box = zoom_in(
-                current_img,
-                bounding_boxes[-1],
-                num_cells=num_cells,
-                selected=zoom_resp.number,
-            )
-            bounding_boxes.append(new_box)
+            current_img = cropped_imgs[zoom_resp.number]
+            current_box = boxes[zoom_resp.number]
+            bounding_boxes.append(current_box)
 
-        raise ValueError(
-            f"Could not find element '{description}' within the allotted {max_depth} steps"
+        click_x, click_y = bounding_boxes[-1].center()
+        logger.info(f"clicking exact coords {click_x}, {click_y}")
+        self.task.post_message(
+            role="assistant",
+            msg=f"Clicking coordinates {click_x}, {click_y}",
+            thread="debug",
         )
+        self._click_coords(x=click_x, y=click_y, type=type)
+        return
+
+        # raise ValueError(
+        #     f"Could not find element '{description}' within the allotted {max_depth} steps"
+        # )
 
     def _click_coords(
         self, x: int, y: int, button: str = "left", type: str = "single"

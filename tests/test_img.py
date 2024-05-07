@@ -1,7 +1,7 @@
 import pytest
 from PIL import Image
 from surfpizza.img import (
-    create_grid_image,
+    create_grid_image_by_num_cells,
     zoom_in,
     superimpose_images,
     Box,
@@ -35,7 +35,7 @@ def test_box_zoom_in():
 
 def test_create_grid_image():
     """Test the grid image creation function."""
-    img = create_grid_image(300, 300, "red", "yellow", 3)
+    img = create_grid_image_by_num_cells(300, 300, "red", "yellow", 3)
     assert img.size == (300, 300)
     # Additional checks can be performed to verify the content of the image.
 

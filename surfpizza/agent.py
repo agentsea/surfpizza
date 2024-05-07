@@ -92,9 +92,9 @@ class SurfPizza(TaskAgent):
                 "move_mouse",
                 "click",
                 "drag_mouse",
-                "double_click",
                 "mouse_coordinates",
                 "take_screenshot",
+                "open_url",
             ]
         )
         console.print("tools: ", style="purple")
@@ -181,6 +181,8 @@ class SurfPizza(TaskAgent):
             # Create a copy of the thread, and remove old images
             _thread = thread.copy()
             _thread.remove_images()
+            console.print("thread: ", style="purple")
+            console.print(JSON(_thread.to_v1().model_dump_json()))
 
             # Take a screenshot of the desktop and post a message with it
             screenshot_b64 = semdesk.desktop.take_screenshot()
