@@ -1,4 +1,4 @@
-from typing import List, Type, Tuple
+from typing import List, Type, Tuple, Optional
 import logging
 from typing import Final
 import traceback
@@ -40,7 +40,7 @@ class SurfPizza(TaskAgent):
     def solve_task(
         self,
         task: Task,
-        device: Device,
+        device: Optional[Device] = None,
         max_steps: int = 30,
     ) -> Task:
         """Solve a task
@@ -95,6 +95,7 @@ class SurfPizza(TaskAgent):
                 "mouse_coordinates",
                 "take_screenshot",
                 "open_url",
+                "double_click",
             ]
         )
         console.print("tools: ", style="purple")
@@ -210,8 +211,12 @@ class SurfPizza(TaskAgent):
 
             # Make the action selection
             response = router.chat(
-                _thread, namespace="action", expect=V1ActionSelection
+                _thread,
+                namespace="action",
+                expect=V1ActionSelection,
+                agent_id=self.name(),
             )
+            task.add_prompt(response.prompt)
 
             try:
                 # Post to the user letting them know what the modle selected
@@ -266,12 +271,12 @@ class SurfPizza(TaskAgent):
 
             # Record the action for feedback and tuning
             task.record_action(
-                prompt=response.prompt_id,
+                prompt=response.prompt,
                 action=selection.action,
                 tool=semdesk.ref(),
                 result=action_response,
                 agent_id=self.name(),
-                model="TODO",
+                model=response.model,
             )
 
             _thread.add_msg(response.msg)
@@ -325,7 +330,6 @@ class SurfPizza(TaskAgent):
     @classmethod
     def init(cls) -> None:
         """Initialize the agent class"""
-        # <INITIALIZE AGENT HERE>
         return
 
 

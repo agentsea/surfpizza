@@ -10,7 +10,7 @@
     <img src="https://storage.googleapis.com/guisurfer-assets/SurfPizza.webp" alt="SurfPizza Logo" width="200" style="border-radius: 20px;">
     </p>
   <p align="center">
-    A GUI surfer which uses coordinate dots for grounding
+    A GUI surfer which slices up the screen
     <br />
     <a href="https://github.com/agentsea/surfpizza"><strong>Explore the docs »</strong></a>
     <br />
@@ -41,7 +41,7 @@ surfkit create agent -f ./agent.yaml --runtime { process | docker | kube } --nam
 List running agents
 
 ```sh
-surfkit list agents --runtime process
+surfkit list agents
 ```
 
 Use the agent to solve a task
@@ -53,11 +53,11 @@ surfkit solve --agent foo --description "Search for french ducks" --device-type 
 Get the agent logs
 
 ```sh
-surfkit logs --agent foo -r process
+surfkit logs --name foo
 ```
 
 Delete the agent
 
 ```sh
-surfkit delete --agent foo -r process
+surfkit delete agent --name foo
 ```

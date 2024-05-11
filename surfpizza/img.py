@@ -2,6 +2,7 @@ from typing import Tuple, List
 from PIL import Image, ImageDraw, ImageFont
 import base64
 from io import BytesIO
+from PIL import Image, ImageDraw
 
 # We need a simple grid: numbers from 1 to 9 in points on an intersection of nxn grid.
 # The font size may be 1/5 of the size of the height of the cell.
@@ -38,6 +39,24 @@ class Box:
 
     def crop_image(self, img: Image.Image) -> Image.Image:
         return img.crop((self.left, self.top, self.right, self.bottom))
+
+    def draw(
+        self,
+        draw_context,
+        outline: str = "red",
+        width: int = 3,
+    ) -> None:
+        draw_context.rectangle(
+            [self.left, self.top, self.right, self.bottom], outline=outline, width=width
+        )
+
+    def to_absolute(self, parent_box: "Box") -> "Box":
+        return Box(
+            self.left + parent_box.left,
+            self.top + parent_box.top,
+            self.right + parent_box.left,
+            self.bottom + parent_box.top,
+        )
 
 
 def divide_image_into_cells(
@@ -263,21 +282,21 @@ def combine_images_vertically(images: List[Image.Image]) -> Image.Image:
 def zoom_in(
     img: Image.Image, box: Box, num_cells: int, selected: int
 ) -> Tuple[Image.Image, Box]:
-    """Zoom in on a cell and return the cropped image along with the new bounding box.
+    """Zoom in on the selected cell.
 
     Args:
-        img (Image.Image): The image to zoom in.
-        box (Box): Current bounding box.
-        num_cells (int): The number of cells in the grid.
-        selected (int): The index of the cell to zoom in on.
+        img (Image.Image): The image to zoom in
+        box (Box): The box to zoom into
+        num_cells (int): Number of cells to use.
+        selected (int): The selected cell
 
     Returns:
-        Image.Image: The zoomed-in image.
-        Box: The new bounding box of the zoomed cell.
+        Tuple[Image.Image, Box]: Cropped image and asociated box
     """
     new_box = box.zoom_in(selected, num_cells)
+    absolute_box = new_box.to_absolute(box)
     cropped_img = new_box.crop_image(img)
-    return cropped_img, new_box
+    return cropped_img, absolute_box
 
 
 def superimpose_images(

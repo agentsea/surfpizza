@@ -1,10 +1,11 @@
 import os
-from typing import List, Final
+from typing import Final
 import logging
 
-from taskara import Task, V1Task, V1Tasks
+from taskara import Task
+from taskara.server.models import V1TaskUpdate, V1Tasks, V1Task
 from surfkit.hub import Hub
-from surfkit.models import V1SolveTask
+from surfkit.server.models import V1SolveTask
 from surfkit.env import HUB_SERVER_ENV, HUB_API_KEY_ENV
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -109,7 +110,7 @@ def _solve_task(task_model: V1SolveTask):
 
     logger.info("starting agent...")
     if task_model.agent:
-        config = Agent.config_type()(**task_model.agent.config.model_dump())
+        config = Agent.config_type().model_validate(task_model.agent.config)
         agent = Agent.from_config(config=config)
     else:
         agent = Agent.default()
@@ -142,6 +143,18 @@ async def get_task(id: str):
     return tasks[0].to_v1()
 
 
+@app.put("/v1/tasks/{id}", response_model=V1Task)
+async def put_task(id: str, data: V1TaskUpdate):
+    tasks = Task.find(id=id)
+    if not tasks:
+        raise Exception(f"Task {id} not found")
+    task = tasks[0]
+    if data.status:
+        task.status = data.status
+    task.save()
+    return task.to_v1()
+
+
 @retry(stop=stop_after_attempt(10), wait=wait_fixed(10))
 def get_remote_task(id: str, owner_id: str, server: str) -> Task:
     HUB_API_KEY = os.environ.get(HUB_API_KEY_ENV)
@@ -166,10 +179,11 @@ def get_remote_task(id: str, owner_id: str, server: str) -> Task:
 
 if __name__ == "__main__":
     port = os.getenv("SURF_PORT", "9090")
+    reload = os.getenv("SURF_RELOAD", "true") == "true"
     uvicorn.run(
         "surfpizza.server:app",
         host="0.0.0.0",
         port=int(port),
-        reload=True,
+        reload=reload,
         reload_excludes=[".data"],
     )

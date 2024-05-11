@@ -1,7 +1,10 @@
 api_version: v1
 kind: TaskAgent
 name: "SurfPizza"
-description: "A GUI surfer which uses coordinate dots for grounding"
+description: "A GUI surfer which slices up the screen"
+tags:
+  - "gui"
+  - "desktop"
 cmd: "poetry run python -m surfpizza.server"
 img_repo: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza"
 versions:

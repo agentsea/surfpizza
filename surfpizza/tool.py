@@ -2,7 +2,8 @@ import os
 import time
 import logging
 import time
-import shutil
+import hashlib
+from typing import List, Optional, Tuple
 
 from agentdesk.device import Desktop
 from toolfuse import action
@@ -13,6 +14,7 @@ from taskara import Task
 from toolfuse import Tool
 from mllm import Router, RoleThread, RoleMessage
 from pydantic import BaseModel, Field
+from PIL import Image, ImageDraw
 
 from .img import (
     create_grid_image_by_size,
@@ -36,21 +38,23 @@ logger.setLevel(int(os.getenv("LOG_LEVEL", logging.DEBUG)))
 class SemanticDesktop(Tool):
     """A semantic desktop replaces click actions with semantic description rather than coordinates"""
 
-    def __init__(self, task: Task, desktop: Desktop) -> None:
+    def __init__(
+        self, task: Task, desktop: Desktop, data_path: str = "./.data"
+    ) -> None:
         """
         Initialize and open a URL in the application.
 
         Args:
             task: Agent task. Defaults to None.
             desktop: Desktop instance to wrap.
+            data_path (str, optional): Path to data. Defaults to "./.data".
         """
         super().__init__(wraps=desktop)
         self.desktop = desktop
 
-        os.makedirs("./.img", exist_ok=True)
-        os.makedirs("./temp", exist_ok=True)
-        shutil.rmtree("./.data/images")
-        os.makedirs("./.data/images", exist_ok=True)
+        self.data_path = data_path
+        self.img_path = os.path.join(self.data_path, "images", task.id)
+        os.makedirs(self.img_path, exist_ok=True)
 
         self.task = task
 
@@ -74,6 +78,8 @@ class SemanticDesktop(Tool):
         color_circle = os.getenv("COLOR_CIRCLE", "red")
         num_cells = int(os.getenv("NUM_CELLS", 3))
 
+        click_hash = hashlib.md5(description.encode()).hexdigest()[:5]
+
         class ZoomSelection(BaseModel):
             """Zoom selection model"""
 
@@ -92,9 +98,18 @@ class SemanticDesktop(Tool):
 
         thread = RoleThread()
 
+        self.task.post_message(
+            role="assistant",
+            msg=f"Clicking '{type}' on object '{description}'",
+            thread="debug",
+            images=[image_to_b64(current_img)],
+        )
+
         for i in range(max_depth):
             logger.info(f"zoom depth {i}")
-            current_img.save(f"./.data/images/current_img_{i}.png")
+            current_img.save(
+                os.path.join(self.img_path, f"{click_hash}_current_{i}.png")
+            )
 
             screenshot_b64 = image_to_b64(current_img)
             self.task.post_message(
@@ -119,16 +134,23 @@ class SemanticDesktop(Tool):
             composite, cropped_imgs, boxes = divide_image_into_cells(
                 current_img, num_cells=num_cells
             )
+            debug_img = self._debug_image(current_img.copy(), boxes)
+
+            # self.task.post_message(
+            #     role="assistant",
+            #     msg=f"Pizza for depth {i}",
+            #     thread="debug",
+            #     images=[image_to_b64(debug_img)],
+            # )
+
             self.task.post_message(
                 role="assistant",
-                msg=f"Pizza for depth {i}",
+                msg=f"Composite for depth {i}",
                 thread="debug",
                 images=[image_to_b64(composite)],
             )
-            composite.save(f"./.data/images/merged{i}.png")
+            composite.save(os.path.join(self.img_path, f"{click_hash}_merged_{i}.png"))
             composite_b64 = image_to_b64(composite)
-
-            # example_img = load_image_base64("./.data/prompt/merged0.png")
 
             prompt = (
                 "You are an experienced AI trained to find the elements on the screen."
@@ -145,13 +167,15 @@ class SemanticDesktop(Tool):
             )
             thread.add_msg(msg)
 
-            response = router.chat(thread, namespace="zoom", expect=ZoomSelection)
+            response = router.chat(
+                thread, namespace="zoom", expect=ZoomSelection, agent_id="SurfPizza"
+            )
             if not response.parsed:
                 raise SystemError("No response parsed from zoom")
 
-            logger.info(f"zoom response {response.model_dump_json()}")
+            logger.info(f"zoom response {response}")
 
-            self.task.store_prompt(thread, response.msg, namespace="zoom")
+            self.task.add_prompt(response.prompt)
 
             zoom_resp = response.parsed
             self.task.post_message(
@@ -161,20 +185,10 @@ class SemanticDesktop(Tool):
             )
             console.print(JSON(zoom_resp.model_dump_json()))
 
-            # if zoom_resp.exact:
-            #     click_x, click_y = bounding_boxes[-1].center()
-            #     logger.info(f"clicking exact coords {click_x}, {click_y}")
-            #     self.task.post_message(
-            #         role="assistant",
-            #         msg=f"Clicking coordinates {click_x}, {click_y}",
-            #         thread="debug",
-            #     )
-            #     self._click_coords(x=click_x, y=click_y, type=type)
-            #     return
-
             current_img = cropped_imgs[zoom_resp.number]
             current_box = boxes[zoom_resp.number]
-            bounding_boxes.append(current_box)
+            absolute_box = current_box.to_absolute(bounding_boxes[-1])
+            bounding_boxes.append(absolute_box)
 
         click_x, click_y = bounding_boxes[-1].center()
         logger.info(f"clicking exact coords {click_x}, {click_y}")
@@ -183,12 +197,18 @@ class SemanticDesktop(Tool):
             msg=f"Clicking coordinates {click_x}, {click_y}",
             thread="debug",
         )
+
+        debug_img = self._debug_image(
+            original_img.copy(), bounding_boxes, (click_x, click_y)
+        )
+        self.task.post_message(
+            role="assistant",
+            msg=f"Final debug img",
+            thread="debug",
+            images=[image_to_b64(debug_img)],
+        )
         self._click_coords(x=click_x, y=click_y, type=type)
         return
-
-        # raise ValueError(
-        #     f"Could not find element '{description}' within the allotted {max_depth} steps"
-        # )
 
     def _click_coords(
         self, x: int, y: int, button: str = "left", type: str = "single"
@@ -222,3 +242,26 @@ class SemanticDesktop(Tool):
         else:
             raise ValueError(f"unkown click type {type}")
         return
+
+    def _debug_image(
+        self,
+        img: Image.Image,
+        boxes: List[Box],
+        final_click: Optional[Tuple[int, int]] = None,
+    ) -> Image.Image:
+        draw = ImageDraw.Draw(img)
+        for box in boxes:
+            box.draw(draw)
+
+        if final_click:
+            draw.ellipse(
+                [
+                    final_click[0] - 5,
+                    final_click[1] - 5,
+                    final_click[0] + 5,
+                    final_click[1] + 5,
+                ],
+                fill="red",
+                outline="red",
+            )
+        return img
