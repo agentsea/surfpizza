@@ -149,9 +149,12 @@ async def put_task(id: str, data: V1TaskUpdate):
     if not tasks:
         raise Exception(f"Task {id} not found")
     task = tasks[0]
+    print("updating task...")
     if data.status:
         task.status = data.status
+        print("updated task status to: ", task.status)
     task.save()
+    print("saved task...")
     return task.to_v1()
 
 

@@ -170,6 +170,7 @@ class SurfPizza(TaskAgent):
             # Check to see if the task has been cancelled
             if task.remote:
                 task.refresh()
+            print("\n\ntask status: ", task.status)
             if task.status == "cancelling" or task.status == "cancelled":
                 console.print(f"task is {task.status}", style="red")
                 if task.status == "cancelling":
