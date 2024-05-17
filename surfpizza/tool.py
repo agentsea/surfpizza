@@ -64,8 +64,8 @@ class SemanticDesktop(Tool):
         """Click on an object on the screen
 
         Args:
-            description (str): The description of the object, for example
-                "a round dark blue icon with the text 'Home'", please be a generic as possible
+            description (str): The description of the object including its general location, for example
+                "a round dark blue icon with the text 'Home' in the top-right of the image", please be a generic as possible
             type (str): Type of click, can be 'single' for a single click or
                 'double' for a double click. If you need to launch an application from the desktop choose 'double'
         """
