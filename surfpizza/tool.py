@@ -28,6 +28,7 @@ from .img import (
     Box,
 )
 
+
 router = Router.from_env()
 console = Console()
 
@@ -119,6 +120,7 @@ class SemanticDesktop(Tool):
                 images=[screenshot_b64],
             )
 
+            # -- If you want dots
             # current_dim = current_img.size
             # grid_img = create_grid_image_by_num_cells(
             #     image_width=current_dim[0],
@@ -127,21 +129,13 @@ class SemanticDesktop(Tool):
             #     color_text=color_text,
             #     num_cells=4,
             # )
-
             # merged_image = superimpose_images(current_img.copy(), grid_img)
-
             # merged_image_b64 = image_to_b64(merged_image)
+
             composite, cropped_imgs, boxes = divide_image_into_cells(
                 current_img, num_cells=num_cells
             )
             debug_img = self._debug_image(current_img.copy(), boxes)
-
-            # self.task.post_message(
-            #     role="assistant",
-            #     msg=f"Pizza for depth {i}",
-            #     thread="debug",
-            #     images=[image_to_b64(debug_img)],
-            # )
 
             self.task.post_message(
                 role="assistant",
@@ -159,6 +153,8 @@ class SemanticDesktop(Tool):
                 "to help you to find required elements. "
                 f"Please select the number of the cell which contains '{description}' "
                 f"Please return you response as raw JSON following the schema {ZoomSelection.model_json_schema()} "
+                "Be concise and only return the raw json, for example if the image you wanted to select had a number 3 next to it "
+                "you would return {'number': 3}"
             )
             msg = RoleMessage(
                 role="user",
@@ -210,9 +206,7 @@ class SemanticDesktop(Tool):
         self._click_coords(x=click_x, y=click_y, type=type)
         return
 
-    def _click_coords(
-        self, x: int, y: int, button: str = "left", type: str = "single"
-    ) -> None:
+    def _click_coords(self, x: int, y: int, type: str = "single") -> None:
         """Click mouse button
 
         Args:

@@ -30,6 +30,27 @@
 pip install surfkit
 ```
 
+## Quick Start
+
+Create a task server
+
+```sh
+surfkit create taskserver
+```
+
+Create a device
+
+```sh
+surfkit create device --provider gce --name george
+```
+
+Solve a task
+
+```sh
+surfkit solve --description "Search for common varieties of french ducks" \
+--device george --agent-file ./agent.yaml --kill
+```
+
 ## Usage
 
 Create an agent
@@ -47,7 +68,7 @@ surfkit list agents
 Use the agent to solve a task
 
 ```sh
-surfkit solve --agent foo --description "Search for french ducks" --device-type desktop -r process
+surfkit solve --agent foo --description "Search for french ducks" --device-type desktop
 ```
 
 Get the agent logs

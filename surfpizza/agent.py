@@ -23,6 +23,7 @@ from rich.console import Console
 
 from .tool import SemanticDesktop, router
 
+
 logging.basicConfig(level=logging.INFO)
 logger: Final = logging.getLogger(__name__)
 logger.setLevel(int(os.getenv("LOG_LEVEL", str(logging.DEBUG))))
@@ -35,7 +36,7 @@ class SurfPizzaConfig(BaseModel):
 
 
 class SurfPizza(TaskAgent):
-    """A desktop agent that uses GPT-4V augmented with OCR and Grounding Dino to solve tasks"""
+    """A GUI desktop agent that slices up the image"""
 
     def solve_task(
         self,
@@ -72,7 +73,7 @@ class SurfPizza(TaskAgent):
         # Add standard agent utils to the device
         semdesk.merge(AgentUtils())
 
-        # Open a site if that is in the parameters
+        # Open a site if present in the parameters
         site = task._parameters.get("site") if task._parameters else None
         if site:
             console.print(f"▶️ opening site url: {site}", style="blue")
@@ -170,7 +171,7 @@ class SurfPizza(TaskAgent):
             # Check to see if the task has been cancelled
             if task.remote:
                 task.refresh()
-            print("\n\ntask status: ", task.status)
+            console.print("\n\ntask status: ", task.status)
             if task.status == "cancelling" or task.status == "cancelled":
                 console.print(f"task is {task.status}", style="red")
                 if task.status == "cancelling":
@@ -183,8 +184,6 @@ class SurfPizza(TaskAgent):
             # Create a copy of the thread, and remove old images
             _thread = thread.copy()
             _thread.remove_images()
-            console.print("thread: ", style="purple")
-            console.print(JSON(_thread.to_v1().model_dump_json()))
 
             # Take a screenshot of the desktop and post a message with it
             screenshot_b64 = semdesk.desktop.take_screenshot()
@@ -284,7 +283,7 @@ class SurfPizza(TaskAgent):
             return _thread, False
 
         except Exception as e:
-            print("Exception taking action: ", e)
+            console.print("Exception taking action: ", e)
             traceback.print_exc()
             task.post_message("assistant", f"⚠️ Error taking action: {e} -- retrying...")
             raise e

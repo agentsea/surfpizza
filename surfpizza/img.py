@@ -4,10 +4,6 @@ import base64
 from io import BytesIO
 from PIL import Image, ImageDraw
 
-# We need a simple grid: numbers from 1 to 9 in points on an intersection of nxn grid.
-# The font size may be 1/5 of the size of the height of the cell.
-# Therefore, we need the size of the image and colors, and the file_name.
-
 
 class Box:
     def __init__(self, left: int, top: int, right: int, bottom: int):

@@ -4,9 +4,8 @@ import logging
 
 from taskara import Task
 from taskara.server.models import V1TaskUpdate, V1Tasks, V1Task
-from surfkit.hub import Hub
 from surfkit.server.models import V1SolveTask
-from surfkit.env import HUB_SERVER_ENV, HUB_API_KEY_ENV
+from surfkit.env import HUB_API_KEY_ENV
 from fastapi import FastAPI, BackgroundTasks, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -64,27 +63,14 @@ async def solve_task(background_tasks: BackgroundTasks, task_model: V1SolveTask)
 
     background_tasks.add_task(_solve_task, task_model)
     logger.info("created background task...")
+    return
 
 
 def _solve_task(task_model: V1SolveTask):
-    task = Task.from_v1(task_model.task, owner_id="local")
-    if task.remote:
-        logger.info("connecting to remote task...")
-        HUB_SERVER = os.environ.get(HUB_SERVER_ENV, "https://surf.agentlabs.xyz")
-        HUB_API_KEY = os.environ.get(HUB_API_KEY_ENV)
-        if not HUB_API_KEY:
-            raise Exception(f"${HUB_API_KEY_ENV} not set")
-
-        hub = Hub(HUB_SERVER)
-        user_info = hub.get_user_info(HUB_API_KEY)
-        logger.debug(f"got user info: {user_info.__dict__}")
-
-        task = get_remote_task(
-            id=task.id,
-            owner_id=user_info.email,  # type: ignore
-            server=task.remote,
-        )
-        logger.debug(f"got remote task: {task.__dict__}")
+    owner_id = task_model.task.owner_id
+    if not owner_id:
+        owner_id = "local"
+    task = Task.from_v1(task_model.task, owner_id=owner_id)
 
     logger.info("Saving remote tasks status to running...")
     task.status = "in progress"
@@ -116,7 +102,9 @@ def _solve_task(task_model: V1SolveTask):
         agent = Agent.default()
 
     try:
-        fin_task = agent.solve_task(task=task, device=device, max_steps=task.max_steps)
+        final_task = agent.solve_task(
+            task=task, device=device, max_steps=task.max_steps
+        )
     except Exception as e:
         logger.error(f"error running agent: {e}")
         task.status = "failed"
@@ -125,8 +113,8 @@ def _solve_task(task_model: V1SolveTask):
         task.post_message("assistant", f"Failed to run task '{task.description}': {e}")
         raise e
 
-    if fin_task:
-        fin_task.save()
+    if final_task:
+        final_task.save()
 
 
 @app.get("/v1/tasks", response_model=V1Tasks)
