@@ -32,10 +32,10 @@ pip install surfkit
 
 ## Quick Start
 
-Create a task server
+Create a tracker
 
 ```sh
-surfkit create taskserver
+surfkit create tracker
 ```
 
 Create a device
@@ -91,10 +91,10 @@ Install dependencies
 poetry install
 ```
 
-Create a task server
+Create a tracker
 
 ```sh
-surfkit create taskserver
+surfkit create tracker
 ```
 
 Create a device
