@@ -48,7 +48,7 @@ Solve a task
 
 ```sh
 surfkit solve --description "Search for common varieties of french ducks" \
---device george --agent-file ./agent.yaml --kill
+--device george --agent-file ./agent.yaml --runtime docker --kill
 ```
 
 ## Usage
@@ -81,4 +81,31 @@ Delete the agent
 
 ```sh
 surfkit delete agent --name foo
+```
+
+## Developing
+
+Install dependencies
+
+```sh
+poetry install
+```
+
+Create a task server
+
+```sh
+surfkit create taskserver
+```
+
+Create a device
+
+```sh
+surfkit create device --provider gce --name george
+```
+
+Solve a task
+
+```sh
+surfkit solve --description "Search for common varieties of french ducks" \
+--device george --agent-file ./agent.yaml --runtime process --kill
 ```

@@ -2,13 +2,13 @@
 
 [[package]]
 name = "agentdesk"
-version = "0.2.71"
+version = "0.2.73"
 description = "A desktop for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "agentdesk-0.2.71-py3-none-any.whl", hash = "sha256:4a8875b2b7a587a028cd6bc2db00b61fc88f03c20e30300ac513fb8143489f4e"},
-    {file = "agentdesk-0.2.71.tar.gz", hash = "sha256:b47752607feca3f6299cd9e65bcb25382730990b1c7ddc3ce88e269178ed4976"},
+    {file = "agentdesk-0.2.73-py3-none-any.whl", hash = "sha256:98eb88867a25b83a94b12ec1e143974bd4d2a16d0af82f3708a3056794a391c8"},
+    {file = "agentdesk-0.2.73.tar.gz", hash = "sha256:0d9988d6ef9c2211331cdd407edd996912c95df24c85173790a8e3ec9d9fcc05"},
 ]
 
 [package.dependencies]
@@ -2360,13 +2360,13 @@ adal = ["adal (>=1.0.2)"]
 
 [[package]]
 name = "litellm"
-version = "1.37.12"
+version = "1.37.13"
 description = "Library to easily interface with LLM API providers"
 optional = false
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 files = [
-    {file = "litellm-1.37.12-py3-none-any.whl", hash = "sha256:5b42b3c98e329a24f48112f488dd1c5e4c635fb5b1a098b50c2cab789cb08172"},
-    {file = "litellm-1.37.12.tar.gz", hash = "sha256:2188991e9aa903c9adcec9a265b58ad3b6d9acbe0b0f194b3321d69fa4102729"},
+    {file = "litellm-1.37.13-py3-none-any.whl", hash = "sha256:fc3344c6606c3261bd9ae2640f970c32cf5ff8ee596fd790209a30a8f3315a36"},
+    {file = "litellm-1.37.13.tar.gz", hash = "sha256:3ae9c217dcfb6c2ab4b9592ed736482475b14e3dfb4d445076be717c48131791"},
 ]
 
 [package.dependencies]
@@ -2958,18 +2958,18 @@ type = ["mypy (>=1.8)"]
 
 [[package]]
 name = "playwright"
-version = "1.43.0"
+version = "1.44.0"
 description = "A high-level API to automate web browsers"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "playwright-1.43.0-py3-none-macosx_10_13_x86_64.whl", hash = "sha256:b03b12bd4da9c2cfb78dff820deac8b52892fe3c2f89a4d95d6f08c59e41deb9"},
-    {file = "playwright-1.43.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:e9ec21b141727392f630761c7f4dec46d80c98243614257cc501b64ff636d337"},
-    {file = "playwright-1.43.0-py3-none-macosx_11_0_universal2.whl", hash = "sha256:e05a8d8fb2040c630429cca07e843c8fa33059717837c8f50c01b7d1fc651ce1"},
-    {file = "playwright-1.43.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:50d9a5c07c76456945a2296d63f78fdf6eb11aed3e8d39bb5ccbda760a8d6d41"},
-    {file = "playwright-1.43.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:87191272c40b4c282cf2c9449ca3acaf705f38ac6e2372270f1617ce16b661b8"},
-    {file = "playwright-1.43.0-py3-none-win32.whl", hash = "sha256:bd8b818904b17e2914be23e7bc2a340b203f57fe81678520b10f908485b056ea"},
-    {file = "playwright-1.43.0-py3-none-win_amd64.whl", hash = "sha256:9b7bd707eeeaebee47f656b2de90aa9bd85e9ca2c6af7a08efd73896299e4d50"},
+    {file = "playwright-1.44.0-py3-none-macosx_10_13_x86_64.whl", hash = "sha256:c2317a80896796fdeb03d60f06cc229e775ff2e19b80c64b1bb9b29c8a59d992"},
+    {file = "playwright-1.44.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:54d44fb634d870839301c2326e1e12a178a1be0de76d0caaec230ab075c2e077"},
+    {file = "playwright-1.44.0-py3-none-macosx_11_0_universal2.whl", hash = "sha256:64b67194e73b47ae72acf25f1a9cfacfef38ca2b52e4bb8b0abd385c5deeaadf"},
+    {file = "playwright-1.44.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:29161b1fae71f7c402df5b15f0bd3deaeecd8b3d1ecd9ff01271700c66210e7b"},
+    {file = "playwright-1.44.0-py3-none-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f8c8a3bfea17576d3f94a2363eee195cbda8dbba86975588c7eaac7792b25eee"},
+    {file = "playwright-1.44.0-py3-none-win32.whl", hash = "sha256:235e37832deaa9af8a629d09955396259ab757533cc1922f9b0308b4ee0d9cdf"},
+    {file = "playwright-1.44.0-py3-none-win_amd64.whl", hash = "sha256:5b8a4a1d4d50f4ff99b47965576322a8c4e34631854b862a25c1feb824be22a8"},
 ]
 
 [package.dependencies]
@@ -4103,17 +4103,17 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.164"
+version = "0.1.167"
 description = "A toolkit for building AI agents that use devices"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.164-py3-none-any.whl", hash = "sha256:d0d14dae9e541ee39c7a09da7362ebaab7fc4b6c4cee9237576bb9fe9b50fa5a"},
-    {file = "surfkit-0.1.164.tar.gz", hash = "sha256:25d82c7330dae52035cfc5bbb7118ed3b8126fcfd10559045d8b023c89899d22"},
+    {file = "surfkit-0.1.167-py3-none-any.whl", hash = "sha256:d767cf5b7484cdb06e3b8cced39fdb6a4d3eb2b71129430546d410c53bfcdd24"},
+    {file = "surfkit-0.1.167.tar.gz", hash = "sha256:745c70d18febc8ed1e0a0630607f63665e5c05ff3e2d9d0ed894c9121f82cac3"},
 ]
 
 [package.dependencies]
-agentdesk = ">=0.2.71,<0.3.0"
+agentdesk = ">=0.2.73,<0.3.0"
 devicebay = ">=0.1.11,<0.2.0"
 docker = ">=7.0.0,<8.0.0"
 kubernetes = ">=29.0.0,<30.0.0"
@@ -5057,4 +5057,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "a9f78b0f17209a64b66396ee1c937b1113af94a2f8a5cdfa31b07248ef227092"
+content-hash = "4ccb38008b83be03486d47da5588bbe3e6dad944b895baf94b27abf433ec6dda"
