@@ -1,12 +1,13 @@
 import os
-from typing import Final
+from typing import Final, Annotated
 import logging
 
 from taskara import Task
 from taskara.server.models import V1TaskUpdate, V1Tasks, V1Task
-from surfkit.server.models import V1SolveTask
+from surfkit.server.models import V1SolveTask, V1UserProfile
 from surfkit.env import HUB_API_KEY_ENV
-from fastapi import FastAPI, BackgroundTasks, HTTPException
+from surfkit.auth.transport import get_user_dependency
+from fastapi import FastAPI, BackgroundTasks, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from tenacity import retry, stop_after_attempt, wait_fixed
@@ -47,7 +48,11 @@ async def health():
 
 
 @app.post("/v1/tasks")
-async def solve_task(background_tasks: BackgroundTasks, task_model: V1SolveTask):
+async def solve_task(
+    current_user: Annotated[V1UserProfile, Depends(get_user_dependency())],
+    background_tasks: BackgroundTasks,
+    task_model: V1SolveTask,
+):
     logger.info(f"solving task: {task_model.model_dump()}")
     try:
         # TODO: we need to find a way to do this earlier but get status back
@@ -80,7 +85,7 @@ def _solve_task(task_model: V1SolveTask):
         logger.info(f"connecting to device {task_model.task.device.name}...")
         device = None
         for Device in Agent.supported_devices():
-            if Device.name() == task_model.task.device.name:
+            if Device.type() == task_model.task.device.type:
                 logger.debug(f"found device: {task_model.task.device.model_dump()}")
                 config = Device.connect_config_type()(**task_model.task.device.config)
                 device = Device.connect(config=config)
@@ -118,13 +123,17 @@ def _solve_task(task_model: V1SolveTask):
 
 
 @app.get("/v1/tasks", response_model=V1Tasks)
-async def get_tasks():
+async def get_tasks(
+    current_user: Annotated[V1UserProfile, Depends(get_user_dependency())],
+):
     tasks = Task.find()
     return V1Tasks(tasks=[task.to_v1() for task in tasks])
 
 
 @app.get("/v1/tasks/{id}", response_model=V1Task)
-async def get_task(id: str):
+async def get_task(
+    current_user: Annotated[V1UserProfile, Depends(get_user_dependency())], id: str
+):
     tasks = Task.find(id=id)
     if not tasks:
         raise Exception(f"Task {id} not found")
@@ -132,7 +141,11 @@ async def get_task(id: str):
 
 
 @app.put("/v1/tasks/{id}", response_model=V1Task)
-async def put_task(id: str, data: V1TaskUpdate):
+async def put_task(
+    current_user: Annotated[V1UserProfile, Depends(get_user_dependency())],
+    id: str,
+    data: V1TaskUpdate,
+):
     tasks = Task.find(id=id)
     if not tasks:
         raise Exception(f"Task {id} not found")
