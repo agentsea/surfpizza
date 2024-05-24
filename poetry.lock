@@ -2,13 +2,13 @@
 
 [[package]]
 name = "agentdesk"
-version = "0.2.80"
+version = "0.2.81"
 description = "A desktop for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "agentdesk-0.2.80-py3-none-any.whl", hash = "sha256:d5b651bdd3a1e77df160394a4d7ab4bcaaed69d11d98e60f40a1538d7f53df15"},
-    {file = "agentdesk-0.2.80.tar.gz", hash = "sha256:9f787a080aa891a7265891f9643a47f7be48671c7fe7de1f968cc99645af9818"},
+    {file = "agentdesk-0.2.81-py3-none-any.whl", hash = "sha256:0ab3d571a75011094003cec7ce691fc6e317e117d7705ac793244ad6970e9c23"},
+    {file = "agentdesk-0.2.81.tar.gz", hash = "sha256:cf4de18379984ccd1588c23c7b28aba1208fade54226631a1440a72731ca6a54"},
 ]
 
 [package.dependencies]
@@ -340,17 +340,17 @@ six = "*"
 
 [[package]]
 name = "boto3"
-version = "1.34.110"
+version = "1.34.112"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.110-py3-none-any.whl", hash = "sha256:2fc871b4a5090716c7a71af52c462e539529227f4d4888fd04896d5028f9cedc"},
-    {file = "boto3-1.34.110.tar.gz", hash = "sha256:83ffe2273da7bdfdb480d85b0705f04e95bd110e9741f23328b7c76c03e6d53c"},
+    {file = "boto3-1.34.112-py3-none-any.whl", hash = "sha256:4cf28ce2c19a4e4963f1cb1f9b659a548f840f88af3e2da727b35ceb104f9223"},
+    {file = "boto3-1.34.112.tar.gz", hash = "sha256:1092ac6c68acdd33051ed0d2b7cb6f5a4527c5d1535a48cda53f7012accde206"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.110,<1.35.0"
+botocore = ">=1.34.112,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -359,13 +359,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "boto3-stubs"
-version = "1.34.110"
-description = "Type annotations for boto3 1.34.110 generated with mypy-boto3-builder 7.24.0"
+version = "1.34.112"
+description = "Type annotations for boto3 1.34.112 generated with mypy-boto3-builder 7.24.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3_stubs-1.34.110-py3-none-any.whl", hash = "sha256:f290e49244b64a05c89f229e1ea8ee4951f5172f83b43d07636199d0d9c58b9a"},
-    {file = "boto3_stubs-1.34.110.tar.gz", hash = "sha256:4b55efa24ee34b54ffe506899f0bdfa8ca8431f6d4b9222d6347dd90e69ba735"},
+    {file = "boto3_stubs-1.34.112-py3-none-any.whl", hash = "sha256:cead3a67515bbfec484a90bfa1ce92c3a1d7d02a2afc0f4f044764b9b53527e5"},
+    {file = "boto3_stubs-1.34.112.tar.gz", hash = "sha256:ef4515b53dcce4d85168fa185dc803537c4c882d5b0dab3e5c34893c83c8dbaa"},
 ]
 
 [package.dependencies]
@@ -417,7 +417,7 @@ bedrock-agent = ["mypy-boto3-bedrock-agent (>=1.34.0,<1.35.0)"]
 bedrock-agent-runtime = ["mypy-boto3-bedrock-agent-runtime (>=1.34.0,<1.35.0)"]
 bedrock-runtime = ["mypy-boto3-bedrock-runtime (>=1.34.0,<1.35.0)"]
 billingconductor = ["mypy-boto3-billingconductor (>=1.34.0,<1.35.0)"]
-boto3 = ["boto3 (==1.34.110)", "botocore (==1.34.110)"]
+boto3 = ["boto3 (==1.34.112)", "botocore (==1.34.112)"]
 braket = ["mypy-boto3-braket (>=1.34.0,<1.35.0)"]
 budgets = ["mypy-boto3-budgets (>=1.34.0,<1.35.0)"]
 ce = ["mypy-boto3-ce (>=1.34.0,<1.35.0)"]
@@ -765,13 +765,13 @@ xray = ["mypy-boto3-xray (>=1.34.0,<1.35.0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.110"
+version = "1.34.112"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.110-py3-none-any.whl", hash = "sha256:1edf3a825ec0a5edf238b2d42ad23305de11d5a71bb27d6f9a58b7e8862df1b6"},
-    {file = "botocore-1.34.110.tar.gz", hash = "sha256:b2c98c40ecf0b1facb9e61ceb7dfa28e61ae2456490554a16c8dbf99f20d6a18"},
+    {file = "botocore-1.34.112-py3-none-any.whl", hash = "sha256:637f568a6c3322fb7e5ee55e0c5367324a15a331e87a497783ac6209253dde30"},
+    {file = "botocore-1.34.112.tar.gz", hash = "sha256:053495953910bcf95d336ab1adb13efb70edc5462932eff180560737ad069319"},
 ]
 
 [package.dependencies]
@@ -1340,22 +1340,23 @@ wmi = ["wmi (>=1.5.1)"]
 
 [[package]]
 name = "docker"
-version = "7.0.0"
+version = "7.1.0"
 description = "A Python library for the Docker Engine API."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "docker-7.0.0-py3-none-any.whl", hash = "sha256:12ba681f2777a0ad28ffbcc846a69c31b4dfd9752b47eb425a274ee269c5e14b"},
-    {file = "docker-7.0.0.tar.gz", hash = "sha256:323736fb92cd9418fc5e7133bc953e11a9da04f4483f828b527db553f1e7e5a3"},
+    {file = "docker-7.1.0-py3-none-any.whl", hash = "sha256:c96b93b7f0a746f9e77d325bcfb87422a3d8bd4f03136ae8a85b37f1898d5fc0"},
+    {file = "docker-7.1.0.tar.gz", hash = "sha256:ad8c70e6e3f8926cb8a92619b832b4ea5299e2831c14284663184e200546fa6c"},
 ]
 
 [package.dependencies]
-packaging = ">=14.0"
 pywin32 = {version = ">=304", markers = "sys_platform == \"win32\""}
 requests = ">=2.26.0"
 urllib3 = ">=1.26.0"
 
 [package.extras]
+dev = ["coverage (==7.2.7)", "pytest (==7.4.2)", "pytest-cov (==4.1.0)", "pytest-timeout (==2.1.0)", "ruff (==0.1.8)"]
+docs = ["myst-parser (==0.18.0)", "sphinx (==5.1.1)"]
 ssh = ["paramiko (>=2.4.3)"]
 websockets = ["websocket-client (>=1.3.0)"]
 
@@ -2379,13 +2380,13 @@ adal = ["adal (>=1.0.2)"]
 
 [[package]]
 name = "litellm"
-version = "1.37.19"
+version = "1.38.1"
 description = "Library to easily interface with LLM API providers"
 optional = false
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 files = [
-    {file = "litellm-1.37.19-py3-none-any.whl", hash = "sha256:5a45b99d6c16a91ba66db6c69d1f406098dbca566be1c2256df5c21c3eb4e4e9"},
-    {file = "litellm-1.37.19.tar.gz", hash = "sha256:9ec9260edaf16476dcff6d91a405364fb994200afa725ed46e7be7c3e54d4515"},
+    {file = "litellm-1.38.1-py3-none-any.whl", hash = "sha256:03e0bf79fbdf0285f5b2c185f8507056dea0481cb668a63fa1641058795af0c9"},
+    {file = "litellm-1.38.1.tar.gz", hash = "sha256:8eed177d5883f11c3f7bdcc78d41379efbff921460c065534cf0f7ef011b0610"},
 ]
 
 [package.dependencies]
@@ -2393,7 +2394,7 @@ aiohttp = "*"
 click = "*"
 importlib-metadata = ">=6.8.0"
 jinja2 = ">=3.1.2,<4.0.0"
-openai = ">=1.0.0"
+openai = ">=1.27.0"
 python-dotenv = ">=0.2.0"
 requests = ">=2.31.0,<3.0.0"
 tiktoken = ">=0.4.0"
@@ -2711,13 +2712,13 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "openai"
-version = "1.30.1"
+version = "1.30.2"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.7.1"
 files = [
-    {file = "openai-1.30.1-py3-none-any.whl", hash = "sha256:c9fb3c3545c118bbce8deb824397b9433a66d0d0ede6a96f7009c95b76de4a46"},
-    {file = "openai-1.30.1.tar.gz", hash = "sha256:4f85190e577cba0b066e1950b8eb9b11d25bc7ebcc43a86b326ce1bfa564ec74"},
+    {file = "openai-1.30.2-py3-none-any.whl", hash = "sha256:44316818fbff3845278e862a655c4c041e93d907b04eff64629c2835f29bd58e"},
+    {file = "openai-1.30.2.tar.gz", hash = "sha256:f86780f40505de60fa389993d9b7f5564f20acfbe5efcabd5c853a12453af2b0"},
 ]
 
 [package.dependencies]
@@ -4161,17 +4162,17 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.176"
+version = "0.1.178"
 description = "A toolkit for building AI agents that use devices"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.176-py3-none-any.whl", hash = "sha256:13c09c5cd3bc5c4c809d794d99e86bb95438cb70372d14e7189c9e4057ead4b7"},
-    {file = "surfkit-0.1.176.tar.gz", hash = "sha256:33ed1e7d29347cbd814c01484c8bc8ccedd58c76ef5cd3d8de667afe8b415ae8"},
+    {file = "surfkit-0.1.178-py3-none-any.whl", hash = "sha256:3d53c4e3002829e7336ab7491d0fd1536cb8dad2ab5eb9c3ddde79c892110b68"},
+    {file = "surfkit-0.1.178.tar.gz", hash = "sha256:dec2efae10bad762dadd6b204390ccec31a2b14e0b06fe4f557a12b0f9ea39b8"},
 ]
 
 [package.dependencies]
-agentdesk = ">=0.2.80,<0.3.0"
+agentdesk = ">=0.2.81,<0.3.0"
 devicebay = ">=0.1.11,<0.2.0"
 docker = ">=7.0.0,<8.0.0"
 kubernetes = ">=29.0.0,<30.0.0"
@@ -4181,7 +4182,7 @@ pydantic = ">=2.6.4,<3.0.0"
 pyyaml = ">=6.0.1,<7.0.0"
 rich = ">=13.7.1,<14.0.0"
 rootpath = ">=0.1.1,<0.2.0"
-taskara = ">=0.1.89,<0.2.0"
+taskara = ">=0.1.91,<0.2.0"
 threadmem = ">=0.2.11,<0.3.0"
 tiktoken = ">=0.6.0,<0.7.0"
 toolfuse = ">=0.1.15,<0.2.0"
@@ -4202,13 +4203,13 @@ widechars = ["wcwidth"]
 
 [[package]]
 name = "taskara"
-version = "0.1.89"
+version = "0.1.91"
 description = "Task management for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "taskara-0.1.89-py3-none-any.whl", hash = "sha256:25b7ed9970af705b04419477032119910fdef5c0bb46c4fcdd5c36de6d16489f"},
-    {file = "taskara-0.1.89.tar.gz", hash = "sha256:a3d03e22c750bf38dc240cecf979b33ae871a30cfb6f253f238d974af1de27bc"},
+    {file = "taskara-0.1.91-py3-none-any.whl", hash = "sha256:34f615b79e702379524357d8a9d228e8e7533848141f27dcb15c20e8eed00e7f"},
+    {file = "taskara-0.1.91.tar.gz", hash = "sha256:f9abada3f6ee8cc21026ebdaecdc2424c7bcf6a62925b5d54faf6260864bc9cc"},
 ]
 
 [package.dependencies]
@@ -5194,4 +5195,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "f932458a4a8a7933efd159cb2d42c1ba195285e10f1fe88dac7c2be27acd2e75"
+content-hash = "71083ad33f392f0258afa2e92f6115722d66c4d935936b4b6af4fda1c22acad8"

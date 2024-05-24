@@ -1,28 +1,22 @@
-from typing import List, Type, Tuple, Optional
 import logging
-from typing import Final
-import traceback
-import time
 import os
+import time
+import traceback
+from typing import Final, List, Optional, Tuple, Type
 
-from devicebay import Device
 from agentdesk.device import Desktop
-from toolfuse.util import AgentUtils
+from devicebay import Device
 from pydantic import BaseModel
+from rich.console import Console
+from rich.json import JSON
+from skillpacks.server.models import V1ActionSelection
 from surfkit.agent import TaskAgent
 from taskara import Task
-from skillpacks.server.models import V1ActionSelection
-from threadmem import RoleThread, RoleMessage
-from tenacity import (
-    retry,
-    stop_after_attempt,
-    before_sleep_log,
-)
-from rich.json import JSON
-from rich.console import Console
+from tenacity import before_sleep_log, retry, stop_after_attempt
+from threadmem import RoleMessage, RoleThread
+from toolfuse.util import AgentUtils
 
 from .tool import SemanticDesktop, router
-
 
 logging.basicConfig(level=logging.INFO)
 logger: Final = logging.getLogger(__name__)
@@ -134,8 +128,6 @@ class SurfPizza(TaskAgent):
 
             if done:
                 console.print("task is done", style="green")
-                # TODO: remove
-                time.sleep(10)
                 return task
 
             time.sleep(2)
@@ -171,11 +163,11 @@ class SurfPizza(TaskAgent):
             # Check to see if the task has been cancelled
             if task.remote:
                 task.refresh()
-            console.print("\n\ntask status: ", task.status)
-            if task.status == "cancelling" or task.status == "cancelled":
+            console.print("task status: ", task.status)
+            if task.status == "canceling" or task.status == "canceled":
                 console.print(f"task is {task.status}", style="red")
-                if task.status == "cancelling":
-                    task.status = "cancelled"
+                if task.status == "canceling":
+                    task.status = "canceled"
                     task.save()
                 return thread, True
 
