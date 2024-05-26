@@ -17,7 +17,7 @@ runtimes:
       - "kube"
 llm_providers:
   preference:
-    - "gpt-4-turbo"
+    - "gpt-4o"
 public: False
 icon: https://storage.googleapis.com/guisurfer-assets/SurfPizza.webp
 resource_requests:
