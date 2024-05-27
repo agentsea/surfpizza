@@ -1,33 +1,30 @@
+import hashlib
+import logging
 import os
 import time
-import logging
-import time
-import hashlib
 from typing import List, Optional, Tuple
 
-from agentdesk.device import Desktop
-from toolfuse import action
 import requests
+from agentdesk.device import Desktop
+from mllm import RoleMessage, RoleThread, Router
+from PIL import Image, ImageDraw
+from pydantic import BaseModel, Field
 from rich.console import Console
 from rich.json import JSON
 from taskara import Task
-from toolfuse import Tool
-from mllm import Router, RoleThread, RoleMessage
-from pydantic import BaseModel, Field
-from PIL import Image, ImageDraw
+from toolfuse import Tool, action
 
 from .img import (
-    create_grid_image_by_size,
-    create_grid_image_by_num_cells,
-    zoom_in,
-    superimpose_images,
+    Box,
     b64_to_image,
+    create_grid_image_by_num_cells,
+    create_grid_image_by_size,
+    divide_image_into_cells,
     image_to_b64,
     load_image_base64,
-    divide_image_into_cells,
-    Box,
+    superimpose_images,
+    zoom_in,
 )
-
 
 router = Router.from_env()
 console = Console()
@@ -154,7 +151,7 @@ class SemanticDesktop(Tool):
                 f"Please select the number of the cell which contains '{description}' "
                 f"Please return you response as raw JSON following the schema {ZoomSelection.model_json_schema()} "
                 "Be concise and only return the raw json, for example if the image you wanted to select had a number 3 next to it "
-                "you would return {'number': 3}"
+                'you would return {"number": 3}'
             )
             msg = RoleMessage(
                 role="user",
@@ -243,6 +240,17 @@ class SemanticDesktop(Tool):
         boxes: List[Box],
         final_click: Optional[Tuple[int, int]] = None,
     ) -> Image.Image:
+        """
+        Generates a debug image with bounding boxes and a final click marker.
+
+        Args:
+            img (Image.Image): The image to draw the debug information on.
+            boxes (List[Box]): A list of bounding boxes to draw on the image.
+            final_click (Optional[Tuple[int, int]]): The coordinates of the final click, which will be marked with a red circle.
+
+        Returns:
+            Image.Image: The modified image with the debug information added.
+        """
         draw = ImageDraw.Draw(img)
         for box in boxes:
             box.draw(draw)

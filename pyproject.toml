@@ -14,7 +14,7 @@ sqlalchemy = "^2.0.27"
 pydantic = "^2.6.3"
 requests = "^2.31.0"
 fastapi = {version = "^0.109", extras = ["all"]}
-surfkit = "^0.1.179"
+surfkit = "^0.1.180"
 
 
 [tool.poetry.group.dev.dependencies]
