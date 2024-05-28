@@ -11,7 +11,7 @@ from rich.console import Console
 from rich.json import JSON
 from skillpacks.server.models import V1ActionSelection
 from surfkit.agent import TaskAgent
-from taskara import Task
+from taskara import Task, TaskStatus
 from tenacity import before_sleep_log, retry, stop_after_attempt
 from threadmem import RoleMessage, RoleThread
 from toolfuse.util import AgentUtils
@@ -120,7 +120,7 @@ class SurfPizza(TaskAgent):
                 thread, done = self.take_action(semdesk, task, thread)
             except Exception as e:
                 console.print(f"Error: {e}", style="red")
-                task.status = "failed"
+                task.status = TaskStatus.FAILED
                 task.error = str(e)
                 task.save()
                 task.post_message("assistant", f"❗ Error taking action: {e}")
@@ -132,7 +132,7 @@ class SurfPizza(TaskAgent):
 
             time.sleep(2)
 
-        task.status = "failed"
+        task.status = TaskStatus.FAILED
         task.save()
         task.post_message("assistant", "❗ Max steps reached without solving task")
         console.print("Reached max steps without solving task", style="red")
@@ -164,10 +164,13 @@ class SurfPizza(TaskAgent):
             if task.remote:
                 task.refresh()
             console.print("task status: ", task.status)
-            if task.status == "canceling" or task.status == "canceled":
+            if (
+                task.status == TaskStatus.CANCELING
+                or task.status == TaskStatus.CANCELED
+            ):
                 console.print(f"task is {task.status}", style="red")
-                if task.status == "canceling":
-                    task.status = "canceled"
+                if task.status == TaskStatus.CANCELING:
+                    task.status = TaskStatus.CANCELED
                     task.save()
                 return thread, True
 
@@ -238,7 +241,7 @@ class SurfPizza(TaskAgent):
                     "assistant",
                     f"✅ I think the task is done, please review the result: {selection.action.parameters['value']}",
                 )
-                task.status = "review"
+                task.status = TaskStatus.REVIEW
                 task.save()
                 return _thread, True
 
