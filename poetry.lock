@@ -2,13 +2,13 @@
 
 [[package]]
 name = "agentdesk"
-version = "0.2.81"
+version = "0.2.83"
 description = "A desktop for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "agentdesk-0.2.81-py3-none-any.whl", hash = "sha256:0ab3d571a75011094003cec7ce691fc6e317e117d7705ac793244ad6970e9c23"},
-    {file = "agentdesk-0.2.81.tar.gz", hash = "sha256:cf4de18379984ccd1588c23c7b28aba1208fade54226631a1440a72731ca6a54"},
+    {file = "agentdesk-0.2.83-py3-none-any.whl", hash = "sha256:b5cac242da1e672f35fc42b20cefa097114bc4d35119bb128823444de78bc2c0"},
+    {file = "agentdesk-0.2.83.tar.gz", hash = "sha256:c01064c0f349af88addd3be156dd0b086d7516f4f0cb6e4dd0cf9fe7d6275baf"},
 ]
 
 [package.dependencies]
@@ -340,17 +340,17 @@ six = "*"
 
 [[package]]
 name = "boto3"
-version = "1.34.114"
+version = "1.34.115"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.114-py3-none-any.whl", hash = "sha256:4460958d2b0c53bd2195b23ed5d45db2350e514486fe8caeb38b285b30742280"},
-    {file = "boto3-1.34.114.tar.gz", hash = "sha256:eeb11bca9b19d12baf93436fb8a16b8b824f1f7e8b9bcc722607e862c46b1b08"},
+    {file = "boto3-1.34.115-py3-none-any.whl", hash = "sha256:0a580de3d25364da5db26ecc7dde9438ee1be1e529a7c04cc96972b6e2258378"},
+    {file = "boto3-1.34.115.tar.gz", hash = "sha256:67f5a6d6e6eff9c15711c265173b53eb4ad8d05b756b76ef33ac792cea7958f6"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.114,<1.35.0"
+botocore = ">=1.34.115,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -359,13 +359,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "boto3-stubs"
-version = "1.34.114"
-description = "Type annotations for boto3 1.34.114 generated with mypy-boto3-builder 7.24.0"
+version = "1.34.115"
+description = "Type annotations for boto3 1.34.115 generated with mypy-boto3-builder 7.24.0"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3_stubs-1.34.114-py3-none-any.whl", hash = "sha256:7215e9e273e96f22ef3a7ff4164e7c80e0b5d7f4e196020a04a03488d2b3b281"},
-    {file = "boto3_stubs-1.34.114.tar.gz", hash = "sha256:2b51ebdaec9a2845c65a0a0962586cd400ab69ab678c13da4e4d191df1d99bb7"},
+    {file = "boto3_stubs-1.34.115-py3-none-any.whl", hash = "sha256:fd06dc6cfb2503fcd4314e63d52eae4889f84e06ff4f92dca4a1f6cae68bfb00"},
+    {file = "boto3_stubs-1.34.115.tar.gz", hash = "sha256:1d58dde687903e9b8cd01b2680219ace3981aab72f82165b58bb0a56cff2ce3f"},
 ]
 
 [package.dependencies]
@@ -417,7 +417,7 @@ bedrock-agent = ["mypy-boto3-bedrock-agent (>=1.34.0,<1.35.0)"]
 bedrock-agent-runtime = ["mypy-boto3-bedrock-agent-runtime (>=1.34.0,<1.35.0)"]
 bedrock-runtime = ["mypy-boto3-bedrock-runtime (>=1.34.0,<1.35.0)"]
 billingconductor = ["mypy-boto3-billingconductor (>=1.34.0,<1.35.0)"]
-boto3 = ["boto3 (==1.34.114)", "botocore (==1.34.114)"]
+boto3 = ["boto3 (==1.34.115)", "botocore (==1.34.115)"]
 braket = ["mypy-boto3-braket (>=1.34.0,<1.35.0)"]
 budgets = ["mypy-boto3-budgets (>=1.34.0,<1.35.0)"]
 ce = ["mypy-boto3-ce (>=1.34.0,<1.35.0)"]
@@ -765,13 +765,13 @@ xray = ["mypy-boto3-xray (>=1.34.0,<1.35.0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.114"
+version = "1.34.115"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.114-py3-none-any.whl", hash = "sha256:606d1e55984d45e41a812badee292755f4db0233eed9cca63ea3bb8f5755507f"},
-    {file = "botocore-1.34.114.tar.gz", hash = "sha256:5705f74fda009656a218ffaf4afd81228359160f2ab806ab8222d07e9da3a73b"},
+    {file = "botocore-1.34.115-py3-none-any.whl", hash = "sha256:15b8ad1ee0e9cd57884fb0bcaf3a9551d2552e44a02c2ffb55ec583eebdb888e"},
+    {file = "botocore-1.34.115.tar.gz", hash = "sha256:a5d5e28b9c847b17a1ecb7660b46b83d9512b125f671e03e93d14bf6f0b274c2"},
 ]
 
 [package.dependencies]
@@ -1673,13 +1673,13 @@ protobuf = ">=3.19.5,<3.20.0 || >3.20.0,<3.20.1 || >3.20.1,<4.21.0 || >4.21.0,<4
 
 [[package]]
 name = "google-cloud-container"
-version = "2.45.0"
+version = "2.46.0"
 description = "Google Cloud Container API client library"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "google-cloud-container-2.45.0.tar.gz", hash = "sha256:f2f6922d1f9c20aa210e96c2ebbf5c2b274bb2704a85ec2d4e97410f29b18ecb"},
-    {file = "google_cloud_container-2.45.0-py2.py3-none-any.whl", hash = "sha256:583a8ec051c337bc2845e7621c71e31af24bd33aee419121cc098ee424535c5d"},
+    {file = "google-cloud-container-2.46.0.tar.gz", hash = "sha256:de46d9fb2db69a5f23e0d5637c4cf397525c02c6f2549182449ba2b6fecaee5c"},
+    {file = "google_cloud_container-2.46.0-py2.py3-none-any.whl", hash = "sha256:0864712af56ca81a4c14c57a5d95f89cb24da7f32e0872799303b265eb2af5c5"},
 ]
 
 [package.dependencies]
@@ -2415,13 +2415,13 @@ adal = ["adal (>=1.0.2)"]
 
 [[package]]
 name = "litellm"
-version = "1.38.12"
+version = "1.39.2"
 description = "Library to easily interface with LLM API providers"
 optional = false
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 files = [
-    {file = "litellm-1.38.12-py3-none-any.whl", hash = "sha256:bd473eb9fe17bc312e1e8c1335fde87c67022f9af9e9571947f359e1e908a925"},
-    {file = "litellm-1.38.12.tar.gz", hash = "sha256:815fadee177413a98061210bf9cfece4eae1e9bfb2aadc3f2f8f9d620b1ffb6b"},
+    {file = "litellm-1.39.2-py3-none-any.whl", hash = "sha256:843cb9a4d45c89ba6da95529815ec83ee7e4b7fe07aa0ed633102f600fddd9ad"},
+    {file = "litellm-1.39.2.tar.gz", hash = "sha256:96c4f3d522ccf32817357b1e9f5f63fa36a4a884f336314e1f6d66c0576d689e"},
 ]
 
 [package.dependencies]
@@ -4332,32 +4332,30 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.182"
+version = "0.1.184"
 description = "A toolkit for building AI agents that use devices"
 optional = false
-python-versions = "^3.10"
-files = []
-develop = true
+python-versions = "<4.0,>=3.10"
+files = [
+    {file = "surfkit-0.1.184-py3-none-any.whl", hash = "sha256:3e4e5ce9f0fd3e75f8efa16708456dffaac4547703a38b6c8cad62c122d26d68"},
+    {file = "surfkit-0.1.184.tar.gz", hash = "sha256:88126c79b7a3f195b1e1fd776046166d71371805d1bbed17d5a8ab6b2c609d12"},
+]
 
 [package.dependencies]
-agentdesk = "^0.2.81"
-devicebay = "^0.1.11"
-docker = "^7.0.0"
-kubernetes = "^29.0.0"
-litellm = "^1.35.8"
-namesgenerator = "^0.3"
-pydantic = "^2.6.4"
-pyyaml = "^6.0.1"
-rich = "^13.7.1"
-rootpath = "^0.1.1"
-taskara = "^0.1.96"
-threadmem = "^0.2.11"
-tiktoken = "^0.6.0"
-toolfuse = "^0.1.15"
-
-[package.source]
-type = "directory"
-url = "../surfkit"
+agentdesk = ">=0.2.83,<0.3.0"
+devicebay = ">=0.1.11,<0.2.0"
+docker = ">=7.0.0,<8.0.0"
+kubernetes = ">=29.0.0,<30.0.0"
+litellm = ">=1.35.8,<2.0.0"
+namesgenerator = ">=0.3,<0.4"
+pydantic = ">=2.6.4,<3.0.0"
+pyyaml = ">=6.0.1,<7.0.0"
+rich = ">=13.7.1,<14.0.0"
+rootpath = ">=0.1.1,<0.2.0"
+taskara = ">=0.1.96,<0.2.0"
+threadmem = ">=0.2.11,<0.3.0"
+tiktoken = ">=0.6.0,<0.7.0"
+toolfuse = ">=0.1.15,<0.2.0"
 
 [[package]]
 name = "tabulate"
@@ -5369,4 +5367,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "821b813a77ebdd15331bf96c6dff269332ed8ad3617a69513a2cb79472f6d935"
+content-hash = "4543090e3e0f14c96d64c2e870664b328fa3abe7e9ab2d14447abe85452bf76c"
