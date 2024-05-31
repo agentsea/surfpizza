@@ -4,6 +4,7 @@ name: "SurfPizza"
 description: "A GUI surfer which slices up the screen"
 tags:
   - "gui"
+supports:
   - "desktop"
 cmd: "poetry run python -m surfpizza.server"
 img_repo: "us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza"

@@ -65,10 +65,10 @@ class SemanticDesktop(Tool):
                 "a round dark blue icon with the text 'Home' in the top-right of the image", please be a generic as possible
             type (str): Type of click, can be 'single' for a single click or
                 'double' for a double click. If you need to launch an application from the desktop choose 'double'
-            button (str, optional): Mouse button to click. Defaults to 'left'.
+            button (str, optional): Mouse button to click. Options are 'left' or 'right'. Defaults to 'left'.
         """
         if type != "single" and type != "double":
-            raise ValueError("type must be'single' or 'double'")
+            raise ValueError("type must be 'single' or 'double'")
 
         logging.debug("clicking icon with description ", description)
 

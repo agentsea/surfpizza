@@ -1,11 +1,19 @@
-from typing import Tuple, List
-from PIL import Image, ImageDraw, ImageFont
 import base64
 from io import BytesIO
-from PIL import Image, ImageDraw
+from typing import List, Tuple
+
+from PIL import Image, ImageDraw, ImageFont
 
 
 class Box:
+    """
+    Represents a rectangular box with integer coordinates.
+
+    The `Box` class represents a rectangular area defined by its left, top, right, and bottom coordinates. It provides methods for performing common operations on the box, such as calculating its width and height, zooming in on a specific cell within the box, cropping an image to the box's dimensions, and drawing the box on a drawing context.
+
+    The `Box` class is used throughout the `surfpizza` module to represent and manipulate rectangular areas, such as when processing and displaying images.
+    """
+
     def __init__(self, left: int, top: int, right: int, bottom: int):
         self.left = left
         self.top = top
