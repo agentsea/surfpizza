@@ -19,7 +19,7 @@ runtimes:
 llm_providers:
   preference:
     - "gpt-4o"
-public: False
+public: True
 icon: https://storage.googleapis.com/guisurfer-assets/SurfPizza.webp
 resource_requests:
   cpu: "1"

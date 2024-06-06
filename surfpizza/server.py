@@ -50,7 +50,7 @@ app.include_router(task_router(Agent, router))
 
 if __name__ == "__main__":
     port = os.getenv("SERVER_PORT", "9090")
-    reload = os.getenv("SERVER_RELOAD", "true") == "true"
+    reload = os.getenv("SERVER_RELOAD", "false") == "true"
     host = os.getenv("SERVER_HOST", "0.0.0.0")
 
     uvicorn.run(
