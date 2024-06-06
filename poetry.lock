@@ -783,13 +783,13 @@ crt = ["awscrt (==0.20.11)"]
 
 [[package]]
 name = "botocore-stubs"
-version = "1.34.120"
+version = "1.34.121"
 description = "Type annotations and code completion for botocore"
 optional = false
 python-versions = "<4.0,>=3.8"
 files = [
-    {file = "botocore_stubs-1.34.120-py3-none-any.whl", hash = "sha256:89634ec5d704fd8fde3e9947a8563ab49a594ac0e17a017ece4b0a3e1af1702e"},
-    {file = "botocore_stubs-1.34.120.tar.gz", hash = "sha256:a1e49200012c6fbff47b22ba71444ef9f4353fe12b11af1b063087b0811ee74f"},
+    {file = "botocore_stubs-1.34.121-py3-none-any.whl", hash = "sha256:fc13e608fef519804c669d61afb5ffe4128b37093c91b916287e7f2d4bc58a1e"},
+    {file = "botocore_stubs-1.34.121.tar.gz", hash = "sha256:f0ebc573d400fc7c4ad6d85753e37da62f2865e9e54c7d35280b627d9ba84bde"},
 ]
 
 [package.dependencies]
@@ -4332,13 +4332,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.200"
+version = "0.1.201"
 description = "A toolkit for building AI agents that use devices"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.200-py3-none-any.whl", hash = "sha256:1f80f3538ee3ac8a1391806382482df6915cc3a31b88600f3ffd9ac62ea70069"},
-    {file = "surfkit-0.1.200.tar.gz", hash = "sha256:da432179d7609bcbe9825a1f28ab956e99b69d2434cf83bdd9df3a3a597fe479"},
+    {file = "surfkit-0.1.201-py3-none-any.whl", hash = "sha256:27bd480698497f2cf2ee751323b560137351e6cc3461803cc98b7f635a59eba4"},
+    {file = "surfkit-0.1.201.tar.gz", hash = "sha256:017d41f57336320f9c6ef114c3a9436cb7cd7d54ea5f99e7f0ee9e23182a2767"},
 ]
 
 [package.dependencies]
@@ -4352,7 +4352,7 @@ pydantic = ">=2.6.4,<3.0.0"
 pyyaml = ">=6.0.1,<7.0.0"
 rich = ">=13.7.1,<14.0.0"
 rootpath = ">=0.1.1,<0.2.0"
-taskara = ">=0.1.101,<0.2.0"
+taskara = ">=0.1.102,<0.2.0"
 threadmem = ">=0.2.11,<0.3.0"
 tiktoken = ">=0.6.0,<0.7.0"
 toolfuse = ">=0.1.15,<0.2.0"
@@ -4373,13 +4373,13 @@ widechars = ["wcwidth"]
 
 [[package]]
 name = "taskara"
-version = "0.1.101"
+version = "0.1.102"
 description = "Task management for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "taskara-0.1.101-py3-none-any.whl", hash = "sha256:1bc413dde7e9f9f97ef65919d2c0e1f6d6e004663bb4f0d479121fc48412e251"},
-    {file = "taskara-0.1.101.tar.gz", hash = "sha256:08eeebecedd01ce173c5fcc332c4314ac58f0e3d577095911eb3c767858c84f7"},
+    {file = "taskara-0.1.102-py3-none-any.whl", hash = "sha256:73f2722311eea9cf3455a0be2e27ac03bbb6c9e1d20b26c75173ca02c5335dfa"},
+    {file = "taskara-0.1.102.tar.gz", hash = "sha256:3e7800af8b1019cc125899473fbba865451a70f3f281020bef6197908a7c111c"},
 ]
 
 [package.dependencies]
@@ -5367,4 +5367,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "517f900c77698060dea85859f40fa76817721eadcc146f757e7038575fdec657"
+content-hash = "d9b6c9f1f89f0cd0010bd27963d42c07ed6f4560bf2f219ee825e73f45b919ed"
