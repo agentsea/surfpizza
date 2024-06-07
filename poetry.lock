@@ -4332,13 +4332,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.204"
+version = "0.1.205"
 description = "A toolkit for building AI agents that use devices"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.204-py3-none-any.whl", hash = "sha256:9e319b7af8a73615c88e1efa868ef25b01a4372e5887a4f8e588e782ea7d2719"},
-    {file = "surfkit-0.1.204.tar.gz", hash = "sha256:44a7e75b4a30e9f81d6b80c49c729294ddcf11703a46c10dca4f0f65bedfbfd8"},
+    {file = "surfkit-0.1.205-py3-none-any.whl", hash = "sha256:5c7a60cc6c74848982d4b5293e330610f57f77f7a57720a0d49bc9f20cfefdae"},
+    {file = "surfkit-0.1.205.tar.gz", hash = "sha256:9df94bd01b3efd09ab0a3159ae971760c07e891e1c92be3acc689235223fc4be"},
 ]
 
 [package.dependencies]
@@ -4352,7 +4352,7 @@ pydantic = ">=2.6.4,<3.0.0"
 pyyaml = ">=6.0.1,<7.0.0"
 rich = ">=13.7.1,<14.0.0"
 rootpath = ">=0.1.1,<0.2.0"
-taskara = ">=0.1.104,<0.2.0"
+taskara = ">=0.1.105,<0.2.0"
 threadmem = ">=0.2.11,<0.3.0"
 tiktoken = ">=0.6.0,<0.7.0"
 toolfuse = ">=0.1.15,<0.2.0"
@@ -4373,13 +4373,13 @@ widechars = ["wcwidth"]
 
 [[package]]
 name = "taskara"
-version = "0.1.104"
+version = "0.1.105"
 description = "Task management for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "taskara-0.1.104-py3-none-any.whl", hash = "sha256:9743b1d9c98e7d927c7db1f1c9f7f5a31500761852e5b3cd10aeb0d9f8f5cc9f"},
-    {file = "taskara-0.1.104.tar.gz", hash = "sha256:920783fc497e8ae4259d4cf04a9655d1f68f68a02ef4970797f3bbf9ea5c7cfa"},
+    {file = "taskara-0.1.105-py3-none-any.whl", hash = "sha256:7b5a237f5c3604148534f0ce2f4cf0416dba21bf0e102af02280feac1bafdc0b"},
+    {file = "taskara-0.1.105.tar.gz", hash = "sha256:4a8c41b268ff97bb255a84b41a44baa4f26c4c41b198d241f5135e5557455d5c"},
 ]
 
 [package.dependencies]
@@ -5367,4 +5367,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b83c6a2f00a1ed4a58cba2324d4d045975d60b9e5f19cd2479e7fe66f4ec450b"
+content-hash = "36ba01c6d956b3c47bd0a52154666fc0c02092db37f6529863fad1076ce7696c"
