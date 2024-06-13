@@ -12,7 +12,7 @@
   <p align="center">
     A GUI surfer which slices up the screen
     <br />
-    <a href="https://github.com/agentsea/surfpizza"><strong>Explore the docs »</strong></a>
+    <a href="https://docs.hub.agentsea.ai/introduction"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/agentsea/surfpizza">View Demo</a>
