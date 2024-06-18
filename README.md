@@ -41,47 +41,26 @@ surfkit create tracker
 Create a device
 
 ```sh
-surfkit create device --provider gce --name george
+surfkit create device --provider gce --name device01
+```
+
+Create the agent
+
+```sh
+surfkit create agent -t pbarker/SurfPizza --name agent01
 ```
 
 Solve a task
 
 ```sh
-surfkit solve --description "Search for common varieties of french ducks" \
---device george --agent-file ./agent.yaml --runtime docker --kill
+surfkit solve "Search for common varieties of french ducks" \
+  --device device01 \
+  --agent agent01
 ```
 
-## Usage
+## Documentation
 
-Create an agent
-
-```sh
-surfkit create agent -f ./agent.yaml --runtime { process | docker | kube } --name foo
-```
-
-List running agents
-
-```sh
-surfkit list agents
-```
-
-Use the agent to solve a task
-
-```sh
-surfkit solve --agent foo --description "Search for french ducks" --device-type desktop
-```
-
-Get the agent logs
-
-```sh
-surfkit logs --name foo
-```
-
-Delete the agent
-
-```sh
-surfkit delete agent --name foo
-```
+See our [docs](https://docs.hub.agentsea.ai) for more information on how to use SurfPizza.
 
 ## Developing
 
@@ -106,6 +85,6 @@ surfkit create device --provider gce --name george
 Solve a task
 
 ```sh
-surfkit solve --description "Search for common varieties of french ducks" \
---device george --agent-file ./agent.yaml --runtime process --kill
+surfkit solve "Search for common varieties of french ducks" \
+--device george --agent-file ./agent.yaml --runtime process
 ```
