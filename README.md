@@ -88,3 +88,8 @@ Solve a task
 surfkit solve "Search for common varieties of french ducks" \
 --device george --agent-file ./agent.yaml --runtime process
 ```
+
+## Community
+
+Come join us on [Discord](https://discord.gg/hhaq7XYPS6).
+
