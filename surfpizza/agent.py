@@ -9,7 +9,7 @@ from devicebay import Device
 from pydantic import BaseModel
 from rich.console import Console
 from rich.json import JSON
-from skillpacks.server.models import V1ActionSelection
+from skillpacks.server.models import V1ActionSelection, V1EnvState
 from surfkit.agent import TaskAgent
 from taskara import Task, TaskStatus
 from tenacity import before_sleep_log, retry, stop_after_attempt
@@ -266,6 +266,7 @@ class SurfPizza(TaskAgent):
 
             # Record the action for feedback and tuning
             task.record_action(
+                state=V1EnvState(image=f"data:image/png;base64,{screenshot_b64}"),
                 prompt=response.prompt,
                 action=selection.action,
                 tool=semdesk.ref(),
@@ -297,7 +298,7 @@ class SurfPizza(TaskAgent):
         """Type of config
 
         Returns:
-            Type[DinoConfig]: Config type
+            Type[SurfPizzaConfig]: Config type
         """
         return SurfPizzaConfig
 
@@ -306,7 +307,7 @@ class SurfPizza(TaskAgent):
         """Create an agent from a config
 
         Args:
-            config (DinoConfig): Agent config
+            config (SurfPizzaConfig): Agent config
 
         Returns:
             SurfPizza: The agent
