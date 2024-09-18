@@ -27,7 +27,6 @@ steps:
           --platform linux/amd64,linux/arm64 \
           -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:latest \
           -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${SHORT_SHA}  \
-          --build-arg PYTHON_VERSION=3.12.0 \
           --cache-from type=registry,ref=us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:buildcache \
           --cache-to type=registry,ref=us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:buildcache,mode=max \
           --push \
@@ -42,10 +41,6 @@ steps:
       - |
         docker buildx imagetools inspect us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:latest
         docker buildx imagetools inspect us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${SHORT_SHA}
-
-images:
-  - "us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:latest"
-  - "us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${SHORT_SHA}"
 
 timeout: "3600s"
 
