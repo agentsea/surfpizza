@@ -221,7 +221,7 @@ class SurfPizza(TaskAgent):
 
                 task.post_message("assistant", f"👁️ {selection.observation}")
                 task.post_message("assistant", f"💡 {selection.reason}")
-                console.print(f"action selection: ", style="white")
+                console.print("action selection: ", style="white")
                 console.print(JSON.from_data(selection.model_dump()))
 
                 task.post_message(
