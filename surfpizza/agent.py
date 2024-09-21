@@ -241,7 +241,7 @@ class SurfPizza(TaskAgent):
                     "assistant",
                     f"✅ I think the task is done, please review the result: {selection.action.parameters['value']}",
                 )
-                task.status = TaskStatus.REVIEW
+                task.status = TaskStatus.FINISHED
                 task.save()
                 return _thread, True
 
