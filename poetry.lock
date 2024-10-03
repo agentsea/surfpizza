@@ -816,13 +816,13 @@ crt = ["awscrt (==0.22.0)"]
 
 [[package]]
 name = "botocore-stubs"
-version = "1.35.32"
+version = "1.35.33"
 description = "Type annotations and code completion for botocore"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore_stubs-1.35.32-py3-none-any.whl", hash = "sha256:58db0a21dc576cef715d6bf3f8a55882dfd193919caff796b30e712e6e2658cf"},
-    {file = "botocore_stubs-1.35.32.tar.gz", hash = "sha256:ff7b2450ccba4eb0acb486ddfacf5b9c13ab7db824ca43953d38874ca94687d8"},
+    {file = "botocore_stubs-1.35.33-py3-none-any.whl", hash = "sha256:479d0d61d8549939ad59da6453675f6677ed4af34bbf91cec25b9b9a43dc6a8e"},
+    {file = "botocore_stubs-1.35.33.tar.gz", hash = "sha256:0da89adb37fda4ee860c1eafd780ae681cbae8517c8fcf5208f96ea08b1f2f42"},
 ]
 
 [package.dependencies]
@@ -4234,13 +4234,13 @@ files = [
 
 [[package]]
 name = "skillpacks"
-version = "0.1.60"
+version = "0.1.64"
 description = "Pluggable skills for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "skillpacks-0.1.60-py3-none-any.whl", hash = "sha256:a9b75721e7f4da6d94a23b52ded78ab41ac696fdc0723e7a816184a17de62a66"},
-    {file = "skillpacks-0.1.60.tar.gz", hash = "sha256:0fb989fd2114a556a245d6f7b3bdbf53e1af30f52370dcd6720518e16a67a45b"},
+    {file = "skillpacks-0.1.64-py3-none-any.whl", hash = "sha256:5d9c209c6b22eaecfc0a332420dfb5d62ae91ac1f1395d2860d66a337c97b711"},
+    {file = "skillpacks-0.1.64.tar.gz", hash = "sha256:8cf63c2a7d1b2563f5abe1ba3a46ddc6b158a5aefbf2f2af828298b72adf3eb0"},
 ]
 
 [package.dependencies]
@@ -4386,17 +4386,17 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.261"
+version = "0.1.263"
 description = "A toolkit for building AI agents that use devices"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.261-py3-none-any.whl", hash = "sha256:165f162f40f58aa225321dc8e81647eb2cccceeb008bb5404e24395bf3bbcce7"},
-    {file = "surfkit-0.1.261.tar.gz", hash = "sha256:ae9713902ab56db13a94cef158bf29de6f11062b3b8323c9bf3a88432b6fa69b"},
+    {file = "surfkit-0.1.263-py3-none-any.whl", hash = "sha256:8009b81c539f3f59db640306ccee9f4e55c7e0ece25648045ca7b0b53c35f227"},
+    {file = "surfkit-0.1.263.tar.gz", hash = "sha256:23de759eb8a0420762c5fbe395e0d23c8876c00b228354895ca14d25f1de616b"},
 ]
 
 [package.dependencies]
-agentdesk = ">=0.2.95,<0.3.0"
+agentdesk = ">=0.2.97,<0.3.0"
 devicebay = ">=0.1.11,<0.2.0"
 docker = ">=7.0.0,<8.0.0"
 litellm = ">=1.35.8,<2.0.0"
@@ -4405,7 +4405,7 @@ pydantic = ">=2.6.4,<3.0.0"
 pyyaml = ">=6.0.1,<7.0.0"
 rich = ">=13.7.1,<14.0.0"
 rootpath = ">=0.1.1,<0.2.0"
-taskara = ">=0.1.152,<0.2.0"
+taskara = ">=0.1.153,<0.2.0"
 threadmem = ">=0.2.11,<0.3.0"
 tiktoken = ">=0.6.0,<0.7.0"
 toolfuse = ">=0.1.15,<0.2.0"
@@ -4427,13 +4427,13 @@ widechars = ["wcwidth"]
 
 [[package]]
 name = "taskara"
-version = "0.1.152"
+version = "0.1.153"
 description = "Task management for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "taskara-0.1.152-py3-none-any.whl", hash = "sha256:c710f6365171086fb1c35371da5c83b57d6affb166c2165326c930445d33ddd3"},
-    {file = "taskara-0.1.152.tar.gz", hash = "sha256:de3fbf181e297e4a7a15d33bb5751bf648f69db6aabb85014da5ed1883f749b2"},
+    {file = "taskara-0.1.153-py3-none-any.whl", hash = "sha256:3e7a61497c79c1f1228ff60c04143c6a6538dbe257a7190d08bd97070ce2aecb"},
+    {file = "taskara-0.1.153.tar.gz", hash = "sha256:a47cbe4fcb8a2025c923388a1eb0a82a1271a559a8d6671fa5725295e507bbb3"},
 ]
 
 [package.dependencies]
@@ -4441,7 +4441,7 @@ cryptography = ">=43.0.1,<44.0.0"
 namesgenerator = ">=0.3,<0.4"
 pydantic = ">=2.6.4,<3.0.0"
 shortuuid = ">=1.0.13,<2.0.0"
-skillpacks = ">=0.1.60,<0.2.0"
+skillpacks = ">=0.1.64,<0.2.0"
 sqlalchemy = ">=2.0.29,<3.0.0"
 threadmem = ">=0.2.26,<0.3.0"
 tqdm = ">=4.66.4,<5.0.0"
@@ -5351,4 +5351,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "fcfa1a705d59b01ab04e6207c297347e24b945e7aba5e6901a990bf447fa1b38"
+content-hash = "ca16f1e236568167704a476bdf72bfbe9372c958327aa159ed636fd76e256d7a"

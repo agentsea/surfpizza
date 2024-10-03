@@ -9,7 +9,8 @@ from devicebay import Device
 from pydantic import BaseModel
 from rich.console import Console
 from rich.json import JSON
-from skillpacks.server.models import V1ActionSelection, V1EnvState
+from skillpacks import EnvState
+from skillpacks.server.models import V1ActionSelection
 from surfkit.agent import TaskAgent
 from taskara import Task, TaskStatus
 from tenacity import before_sleep_log, retry, stop_after_attempt
@@ -181,15 +182,14 @@ class SurfPizza(TaskAgent):
             _thread.remove_images()
 
             # Take a screenshot of the desktop and post a message with it
-            screenshot_b64 = semdesk.desktop.take_screenshots()[0]
+            screenshot_img = semdesk.desktop.take_screenshots()[0]
+            console.print(f"screenshot img type: {type(screenshot_img)}")
             task.post_message(
                 "assistant",
                 "current image",
-                images=[f"data:image/png;base64,{screenshot_b64}"],
+                images=[screenshot_img],
                 thread="debug",
             )
-
-            console.print(f"screenshot: {screenshot_b64}")
 
             # Get the current mouse coordinates
             x, y = semdesk.desktop.mouse_coordinates()
@@ -202,7 +202,7 @@ class SurfPizza(TaskAgent):
                     "Here is a screenshot of the current desktop, please select an action from the provided schema."
                     "Please return just the raw JSON"
                 ),
-                images=[f"data:image/png;base64,{screenshot_b64}"],
+                images=[screenshot_img],
             )
             _thread.add_msg(msg)
 
@@ -268,7 +268,7 @@ class SurfPizza(TaskAgent):
 
             # Record the action for feedback and tuning
             task.record_action(
-                state=V1EnvState(images=[f"data:image/png;base64,{screenshot_b64}"]),
+                state=EnvState(images=[screenshot_img]),
                 prompt=response.prompt,
                 action=selection.action,
                 tool=semdesk.ref(),
