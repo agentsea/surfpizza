@@ -4,7 +4,7 @@ import time
 import traceback
 from typing import Final, List, Optional, Tuple, Type
 
-from agentdesk.device import Desktop
+from agentdesk.device_v1 import Desktop
 from devicebay import Device
 from pydantic import BaseModel
 from rich.console import Console
@@ -55,7 +55,7 @@ class SurfPizza(TaskAgent):
         # Create threads in the task to update the user
         console.print("creating threads...")
         task.ensure_thread("debug")
-        task.post_message("assistant", f"I'll post debug messages here", thread="debug")
+        task.post_message("assistant", "I'll post debug messages here", thread="debug")
 
         # Check that the device we received is one we support
         if not isinstance(device, Desktop):
@@ -79,7 +79,7 @@ class SurfPizza(TaskAgent):
         # Get info about the desktop
         info = semdesk.desktop.info()
         screen_size = info["screen_size"]
-        console.print(f"Screen size: {screen_size}")
+        console.print(f"Desktop info: {screen_size}")
 
         # Get the json schema for the tools, excluding actions that aren't useful
         tools = semdesk.json_schema(
@@ -181,7 +181,7 @@ class SurfPizza(TaskAgent):
             _thread.remove_images()
 
             # Take a screenshot of the desktop and post a message with it
-            screenshot_b64 = semdesk.desktop.take_screenshot()
+            screenshot_b64 = semdesk.desktop.take_screenshots()[0]
             task.post_message(
                 "assistant",
                 "current image",
@@ -266,7 +266,7 @@ class SurfPizza(TaskAgent):
 
             # Record the action for feedback and tuning
             task.record_action(
-                state=V1EnvState(image=f"data:image/png;base64,{screenshot_b64}"),
+                state=V1EnvState(images=[f"data:image/png;base64,{screenshot_b64}"]),
                 prompt=response.prompt,
                 action=selection.action,
                 tool=semdesk.ref(),

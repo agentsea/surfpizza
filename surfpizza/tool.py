@@ -5,7 +5,7 @@ import time
 from typing import List, Optional, Tuple
 
 import requests
-from agentdesk.device import Desktop
+from agentdesk.device_v1 import Desktop
 from mllm import RoleMessage, RoleThread, Router
 from PIL import Image, ImageDraw
 from pydantic import BaseModel, Field
@@ -17,13 +17,8 @@ from toolfuse import Tool, action
 from .img import (
     Box,
     b64_to_image,
-    create_grid_image_by_num_cells,
-    create_grid_image_by_size,
     divide_image_into_cells,
     image_to_b64,
-    load_image_base64,
-    superimpose_images,
-    zoom_in,
 )
 
 router = Router.from_env()
@@ -84,10 +79,10 @@ class SemanticDesktop(Tool):
 
             number: int = Field(
                 ...,
-                description=f"Number of the cell containing the element we wish to select",
+                description="Number of the cell containing the element we wish to select",
             )
 
-        current_img_b64 = self.desktop.take_screenshot()
+        current_img_b64 = self.desktop.take_screenshots()[0]
         current_img = b64_to_image(current_img_b64)
         original_img = current_img.copy()
         img_width, img_height = current_img.size
@@ -197,7 +192,7 @@ class SemanticDesktop(Tool):
         )
         self.task.post_message(
             role="assistant",
-            msg=f"Final debug img",
+            msg="Final debug img",
             thread="debug",
             images=[image_to_b64(debug_img)],
         )
