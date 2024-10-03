@@ -189,6 +189,8 @@ class SurfPizza(TaskAgent):
                 thread="debug",
             )
 
+            console.print(f"screenshot: {screenshot_b64}")
+
             # Get the current mouse coordinates
             x, y = semdesk.desktop.mouse_coordinates()
             console.print(f"mouse coordinates: ({x}, {y})", style="white")
