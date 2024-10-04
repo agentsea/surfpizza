@@ -82,8 +82,7 @@ class SemanticDesktop(Tool):
                 description="Number of the cell containing the element we wish to select",
             )
 
-        current_img_b64 = self.desktop.take_screenshots()[0]
-        current_img = b64_to_image(current_img_b64)
+        current_img = self.desktop.take_screenshots()[0]
         original_img = current_img.copy()
         img_width, img_height = current_img.size
 
