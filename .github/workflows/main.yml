@@ -18,7 +18,7 @@ jobs:
       - name: Build x86 Image
         run: |
           docker buildx create --name mybuilder --use
-          docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }} --push .
+          docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:${{ github.sha }} --push .
 
   build-arm:
     runs-on: [ubuntu-arm64-build]  # Use the ARM runner
@@ -35,10 +35,10 @@ jobs:
       - name: Build ARM Image
         run: |
           docker buildx create --name mybuilder --use
-          docker buildx build --platform linux/arm64 -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }} --push .
+          docker buildx build --platform linux/arm64 -t us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:${{ github.sha }} --push .
 
   push-multi-arch:
-    runs-on: [self-hosted, ubuntu-x64]  # Use the x64 runner for pushing the manifest
+    runs-on: [ubuntu-x64]  # Use the x64 runner for pushing the manifest
     needs: [build-x86, build-arm]
 
     steps:
@@ -51,6 +51,6 @@ jobs:
         run: |
           docker buildx create --name mybuilder --use
           docker buildx imagetools create \
-            -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:latest \
-            us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }}-amd64 \
-            us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }}-arm64
+            -t us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:latest \
+            us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:${{ github.sha }}-amd64 \
+            us-central1-docker.pkg.dev/agentsea-dev/guisurfer/surfpizza:${{ github.sha }}-arm64
