@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build-x86:
-    runs-on: [self-hosted, ubuntu-x64]  # Use the x64 runner
+    runs-on: [buntu-x64]  # Use the x64 runner
 
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
           docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }} --push .
 
   build-arm:
-    runs-on: [self-hosted, ubuntu-arm64-build]  # Use the ARM runner
+    runs-on: [ubuntu-arm64-build]  # Use the ARM runner
 
     steps:
       - name: Checkout code
