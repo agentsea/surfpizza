@@ -1,0 +1,56 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-x86:
+    runs-on: [self-hosted, ubuntu-x64]  # Use the x64 runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+
+      - name: Build x86 Image
+        run: |
+          docker buildx create --name mybuilder --use
+          docker buildx build --platform linux/amd64 -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }} --push .
+
+  build-arm:
+    runs-on: [self-hosted, ubuntu-arm64-build]  # Use the ARM runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+
+      - name: Build ARM Image
+        run: |
+          docker buildx create --name mybuilder --use
+          docker buildx build --platform linux/arm64 -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }} --push .
+
+  push-multi-arch:
+    runs-on: [self-hosted, ubuntu-x64]  # Use the x64 runner for pushing the manifest
+    needs: [build-x86, build-arm]
+
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+
+      - name: Create and Push Multi-Arch Manifest
+        run: |
+          docker buildx create --name mybuilder --use
+          docker buildx imagetools create \
+            -t us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:latest \
+            us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }}-amd64 \
+            us-central1-docker.pkg.dev/$PROJECT_ID/guisurfer/surfpizza:${{ github.sha }}-arm64
