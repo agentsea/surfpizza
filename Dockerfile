@@ -1,5 +1,6 @@
 
-FROM thehale/python-poetry:1.8.2-py3.10-slim
+# FROM thehale/python-poetry:1.8.2-py3.10-slim
+FROM thehale/python-poetry:1.8.4-py3.10-slim
 
 COPY . /app
 WORKDIR /app
