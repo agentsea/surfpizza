@@ -4392,13 +4392,13 @@ files = [
 
 [[package]]
 name = "skillpacks"
-version = "0.1.85"
+version = "0.1.87"
 description = "Pluggable skills for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "skillpacks-0.1.85-py3-none-any.whl", hash = "sha256:935f0192f8be8f2a2a456c380a0e37a94a3d484f52119ea9a4f7714729419955"},
-    {file = "skillpacks-0.1.85.tar.gz", hash = "sha256:8acb66a8e995b06bad5c61bf420f779912e5225a7c8c40f3eb9440b2640cac13"},
+    {file = "skillpacks-0.1.87-py3-none-any.whl", hash = "sha256:1ff06bb0db8c6a1ead3eac4948ba22060ef02bc3f50f07e6f8a5acc11129af6b"},
+    {file = "skillpacks-0.1.87.tar.gz", hash = "sha256:3ddbf0b843a55268efec9c7c443b99b026f0a6bf88200345f19c50e83b960206"},
 ]
 
 [package.dependencies]
@@ -4544,13 +4544,13 @@ full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7
 
 [[package]]
 name = "surfkit"
-version = "0.1.284"
+version = "0.1.286"
 description = "A toolkit for building AI agents that use devices"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "surfkit-0.1.284-py3-none-any.whl", hash = "sha256:2344868b9173131ff17e6b6058637ef2c68bfb7c9ba0a6425cd68364c2659587"},
-    {file = "surfkit-0.1.284.tar.gz", hash = "sha256:fdfafe78049fa9e012c68f16931231a27b65d4b5e2bd975705b8087eb2df92ac"},
+    {file = "surfkit-0.1.286-py3-none-any.whl", hash = "sha256:e29e138f33cfc91cc5497ed0212597328107b6270dbd3daff69914a7574d4649"},
+    {file = "surfkit-0.1.286.tar.gz", hash = "sha256:fc7659f11d55496029630c8d7dc5141c6f232f1262f3751f05e7c129d86ec9f2"},
 ]
 
 [package.dependencies]
@@ -4563,7 +4563,7 @@ pydantic = ">=2.6.4,<3.0.0"
 pyyaml = ">=6.0.1,<7.0.0"
 rich = ">=13.7.1,<14.0.0"
 rootpath = ">=0.1.1,<0.2.0"
-taskara = ">=0.1.165,<0.2.0"
+taskara = ">=0.1.166,<0.2.0"
 threadmem = ">=0.2.11,<0.3.0"
 toolfuse = ">=0.1.15,<0.2.0"
 tqdm = ">=4.66.4,<5.0.0"
@@ -4584,13 +4584,13 @@ widechars = ["wcwidth"]
 
 [[package]]
 name = "taskara"
-version = "0.1.165"
+version = "0.1.166"
 description = "Task management for AI agents"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "taskara-0.1.165-py3-none-any.whl", hash = "sha256:de5978ce232b8aa7bb971b8a1a80aef9f343862fc8ffc27189471cbf6b7cc92f"},
-    {file = "taskara-0.1.165.tar.gz", hash = "sha256:bc391bca3a1fd92628e413550e78cd01f64e072f8ef10331fc8e1ec99332915a"},
+    {file = "taskara-0.1.166-py3-none-any.whl", hash = "sha256:d92d770afce3f45471d3ebc023d8ca46a6206610e34cb99e6175558a7d87ccb9"},
+    {file = "taskara-0.1.166.tar.gz", hash = "sha256:8648543e6aefc9bedf4e56e312e26ae01be3fd00c6dd1b6529abc37136ba8aa9"},
 ]
 
 [package.dependencies]
@@ -4598,7 +4598,7 @@ cryptography = ">=43.0.1,<44.0.0"
 namesgenerator = ">=0.3,<0.4"
 pydantic = ">=2.6.4,<3.0.0"
 shortuuid = ">=1.0.13,<2.0.0"
-skillpacks = ">=0.1.85,<0.2.0"
+skillpacks = ">=0.1.87,<0.2.0"
 sqlalchemy = ">=2.0.29,<3.0.0"
 threadmem = ">=0.2.26,<0.3.0"
 tqdm = ">=4.66.4,<5.0.0"
@@ -4672,6 +4672,7 @@ files = [
     {file = "tiktoken-0.8.0-cp310-cp310-win_amd64.whl", hash = "sha256:d8c2d0e5ba6453a290b86cd65fc51fedf247e1ba170191715b049dac1f628005"},
     {file = "tiktoken-0.8.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:d622d8011e6d6f239297efa42a2657043aaed06c4f68833550cac9e9bc723ef1"},
     {file = "tiktoken-0.8.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:2efaf6199717b4485031b4d6edb94075e4d79177a172f38dd934d911b588d54a"},
+    {file = "tiktoken-0.8.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5637e425ce1fc49cf716d88df3092048359a4b3bbb7da762840426e937ada06d"},
     {file = "tiktoken-0.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9fb0e352d1dbe15aba082883058b3cce9e48d33101bdaac1eccf66424feb5b47"},
     {file = "tiktoken-0.8.0-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:56edfefe896c8f10aba372ab5706b9e3558e78db39dd497c940b47bf228bc419"},
     {file = "tiktoken-0.8.0-cp311-cp311-win_amd64.whl", hash = "sha256:326624128590def898775b722ccc327e90b073714227175ea8febbc920ac0a99"},
@@ -5507,4 +5508,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0c43cf8fc74c781d14c53860c4f8ce36494ef8b91c8ab7e2c50757a29a939428"
+content-hash = "4fdaf6aef7c81467cd0047a076bc1476f2eb57622a80a294ba67a27dbe8783e5"
